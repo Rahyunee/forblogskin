@@ -1011,7 +1011,7 @@ button {
   .site-header__inner {
     grid-template-columns: 1fr auto auto;
     gap: 10px;
-    padding: 0 16px;
+    padding: 10px 16px;
   }
 
   .brand__desc {
