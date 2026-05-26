@@ -151,7 +151,7 @@ Comments
 
 - `skin.html`: 티스토리 치환자, 광고 슬롯, 본문/목록/사이드바 구조
 - `style.css`: 반응형 레이아웃, 본문 가독성, 광고 placeholder, 다크모드
-- `script.js`: TOC, 검색, 공유, 다크모드, 읽기 진행 바, 광고 자동 삽입
+- `images/script.js`: TOC, 검색, 공유, 다크모드, 읽기 진행 바, 광고 자동 삽입
 
 운영자가 우선 수정할 위치:
 
