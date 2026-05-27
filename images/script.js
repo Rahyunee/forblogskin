@@ -270,53 +270,17 @@
   }
 
   function initThumbnails() {
-    Array.prototype.forEach.call(document.querySelectorAll(".post-card__thumb"), function (thumb) {
-      var source = thumb.querySelector(".post-card__thumb-source");
-      var url = source ? extractThumbnailUrl(source) : "";
-
-      if (!url) {
-        url = extractThumbnailUrl(thumb);
+    Array.prototype.forEach.call(document.querySelectorAll(".post-card__thumb img"), function (img) {
+      if (img.complete && img.naturalWidth === 0) {
+        img.classList.add("is-broken");
       }
 
-      if (source) source.remove();
-      cleanupThumbnailContent(thumb);
-      if (!url) return;
-
-      thumb.style.setProperty("--card-thumb", "url(\"" + escapeCssUrl(url) + "\")");
+      img.addEventListener("error", function () {
+        img.classList.add("is-broken");
+      }, { once: true });
     });
   }
 
-  function cleanupThumbnailContent(thumb) {
-    Array.prototype.forEach.call(thumb.querySelectorAll("img"), function (img) {
-      img.remove();
-    });
-
-    Array.prototype.forEach.call(thumb.childNodes, function (node) {
-      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
-        node.textContent = "";
-      }
-    });
-  }
-
-  function extractThumbnailUrl(source) {
-    var img = source.querySelector("img");
-    if (img && (img.currentSrc || img.src)) return img.currentSrc || img.src;
-
-    var raw = (source.textContent || "").trim();
-    if (!raw || raw.indexOf("[##_") !== -1) return "";
-
-    var htmlMatch = raw.match(/<img[^>]+src=["']?([^"' >]+)["']?/i);
-    if (htmlMatch && htmlMatch[1]) return htmlMatch[1];
-
-    raw = raw.replace(/^url\(["']?/, "").replace(/["']?\)$/, "").replace(/^['"]|['"]$/g, "");
-    if (!/^https?:\/\//i.test(raw) && raw.indexOf("//") !== 0 && raw.indexOf("/") !== 0) return "";
-
-    return raw;
-  }
-
-  function escapeCssUrl(url) {
-    return String(url).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
-  }
   function initArticleEnhancements() {
     var article = document.querySelector("[data-article-body]");
     if (!article) return;
