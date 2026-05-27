@@ -269,6 +269,38 @@
     }
   }
 
+  function initThumbnails() {
+    Array.prototype.forEach.call(document.querySelectorAll(".post-card__thumb"), function (thumb) {
+      var source = thumb.querySelector(".post-card__thumb-source");
+      if (!source) return;
+
+      var url = extractThumbnailUrl(source);
+      source.remove();
+      if (!url) return;
+
+      thumb.style.setProperty("--card-thumb", "url(\"" + escapeCssUrl(url) + "\")");
+    });
+  }
+
+  function extractThumbnailUrl(source) {
+    var img = source.querySelector("img");
+    if (img && (img.currentSrc || img.src)) return img.currentSrc || img.src;
+
+    var raw = (source.textContent || "").trim();
+    if (!raw || raw.indexOf("[##_") !== -1) return "";
+
+    var htmlMatch = raw.match(/<img[^>]+src=["']?([^"' >]+)["']?/i);
+    if (htmlMatch && htmlMatch[1]) return htmlMatch[1];
+
+    raw = raw.replace(/^url\(["']?/, "").replace(/["']?\)$/, "").replace(/^['"]|['"]$/g, "");
+    if (!/^https?:\/\//i.test(raw) && raw.indexOf("//") !== 0 && raw.indexOf("/") !== 0) return "";
+
+    return raw;
+  }
+
+  function escapeCssUrl(url) {
+    return String(url).replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+  }
   function initArticleEnhancements() {
     var article = document.querySelector("[data-article-body]");
     if (!article) return;
@@ -336,6 +368,7 @@
     initProgress();
     initToc();
     initAdPlaceholders();
+    initThumbnails();
     initArticleEnhancements();
     initShare();
   });
