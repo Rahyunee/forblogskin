@@ -410,7 +410,7 @@ button {
 .post-card__thumb {
   position: relative;
   display: block;
-  aspect-ratio: 16 / 10;
+  height: 230px;
   overflow: hidden;
   background-color: #f3f3f3;
   background-image: var(--default-thumb, linear-gradient(135deg, #f7f7f7 0%, #ececec 100%));
@@ -418,25 +418,40 @@ button {
   background-size: cover;
 }
 
+.post-card__thumb::after {
+  position: absolute;
+  inset: 0;
+  display: block;
+  content: "";
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 55%, rgba(0, 0, 0, 0.05) 100%);
+  pointer-events: none;
+}
+
 .post-card__thumb img,
 .post-card__image {
+  position: absolute;
+  inset: 0;
   display: block;
   width: 100% !important;
   height: 100% !important;
   max-width: none !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
   object-fit: cover;
   object-position: center;
+  opacity: 0;
   border-radius: 0;
+}
+
+.post-card__thumb img.is-loaded,
+.post-card__image.is-loaded {
+  opacity: 1;
 }
 
 .post-card__thumb img[src=""],
 .post-card__thumb img:not([src]),
 .post-card__thumb img.is-broken {
   display: none !important;
-}
-
-.post-card__thumb:has(img:not(.is-broken)) {
-  background-image: none;
 }
 
 
@@ -1159,6 +1174,10 @@ button {
   .post-card__body {
     padding: 17px;
   }
+  .post-card__thumb {
+    height: 200px;
+  }
+
 
   .article {
     padding: 22px 17px;
