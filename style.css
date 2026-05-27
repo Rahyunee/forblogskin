@@ -450,6 +450,24 @@ button {
   display: none !important;
 }
 
+.post-card > img:first-child,
+.post-card > a:first-child > img,
+.post-card > picture:first-child,
+.post-card > picture:first-child > img {
+  display: block !important;
+  width: 100% !important;
+  height: 230px !important;
+  max-width: none !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  border-radius: 0 !important;
+}
+
+.post-card > img:first-child.is-broken,
+.post-card > a:first-child > img.is-broken {
+  display: none !important;
+}
+
 .post-card__thumb > img,
 .post-card__thumb > .post-card__image,
 .post-card__thumb picture,

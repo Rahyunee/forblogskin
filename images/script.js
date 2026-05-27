@@ -270,7 +270,9 @@
   }
 
   function initThumbnails() {
-    Array.prototype.forEach.call(document.querySelectorAll(".post-card__thumb img"), function (img) {
+    normalizePostCardThumbnailMarkup();
+
+    Array.prototype.forEach.call(document.querySelectorAll(".post-card__thumb img, .post-card > img:first-child, .post-card > a:first-child > img"), function (img) {
       img.removeAttribute("width");
       img.removeAttribute("height");
 
@@ -293,6 +295,34 @@
       } else {
         img.addEventListener("load", markLoaded, { once: true });
         img.addEventListener("error", markBroken, { once: true });
+      }
+    });
+  }
+
+  function normalizePostCardThumbnailMarkup() {
+    Array.prototype.forEach.call(document.querySelectorAll(".post-card"), function (card) {
+      if (card.querySelector(":scope > .post-card__thumb")) return;
+
+      var firstElement = Array.prototype.find.call(card.children, function (child) {
+        return child.tagName === "IMG" || child.tagName === "PICTURE" || (child.tagName === "A" && child.querySelector("img, picture"));
+      });
+      if (!firstElement) return;
+
+      var img = firstElement.tagName === "IMG" ? firstElement : firstElement.querySelector("img");
+      if (!img) return;
+
+      var titleLink = card.querySelector(".post-card__body h2 a, h2 a");
+      var wrapper = document.createElement("a");
+      wrapper.className = "post-card__thumb";
+      wrapper.href = (firstElement.tagName === "A" && firstElement.href) || (titleLink && titleLink.href) || "#";
+      wrapper.setAttribute("aria-label", (titleLink && titleLink.textContent.trim()) || "대표 이미지");
+
+      img.classList.add("post-card__image");
+      wrapper.appendChild(img);
+      card.insertBefore(wrapper, card.firstElementChild);
+
+      if (firstElement.parentNode && firstElement !== wrapper && firstElement.childElementCount === 0) {
+        firstElement.remove();
       }
     });
   }
