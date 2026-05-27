@@ -439,19 +439,31 @@ button {
   min-height: 100% !important;
   object-fit: cover;
   object-position: center;
-  opacity: 0;
+  opacity: 1 !important;
   border-radius: 0;
-}
-
-.post-card__thumb img.is-loaded,
-.post-card__image.is-loaded {
-  opacity: 1;
+  z-index: 1;
 }
 
 .post-card__thumb img[src=""],
 .post-card__thumb img:not([src]),
 .post-card__thumb img.is-broken {
   display: none !important;
+}
+
+.post-card__thumb > img,
+.post-card__thumb > .post-card__image,
+.post-card__thumb picture,
+.post-card__thumb picture > img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
 }
 
 
