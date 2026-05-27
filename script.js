@@ -272,13 +272,29 @@
   function initThumbnails() {
     Array.prototype.forEach.call(document.querySelectorAll(".post-card__thumb"), function (thumb) {
       var source = thumb.querySelector(".post-card__thumb-source");
-      if (!source) return;
+      var url = source ? extractThumbnailUrl(source) : "";
 
-      var url = extractThumbnailUrl(source);
-      source.remove();
+      if (!url) {
+        url = extractThumbnailUrl(thumb);
+      }
+
+      if (source) source.remove();
+      cleanupThumbnailContent(thumb);
       if (!url) return;
 
       thumb.style.setProperty("--card-thumb", "url(\"" + escapeCssUrl(url) + "\")");
+    });
+  }
+
+  function cleanupThumbnailContent(thumb) {
+    Array.prototype.forEach.call(thumb.querySelectorAll("img"), function (img) {
+      img.remove();
+    });
+
+    Array.prototype.forEach.call(thumb.childNodes, function (node) {
+      if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+        node.textContent = "";
+      }
     });
   }
 
