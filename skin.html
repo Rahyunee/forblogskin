@@ -90,15 +90,13 @@
           <h1>[##_list_conform_##]</h1>
           <p>총 [##_list_count_##]개의 글을 찾았습니다.</p>
         </section>
-      </s_list>
 
-      <div class="ad-slot ad-slot--list-top" aria-label="목록 상단 광고">
-        <span>목록 상단 광고 영역</span>
-        [##_revenue_list_upper_##]
-      </div>
+        <div class="ad-slot ad-slot--list-top" aria-label="목록 상단 광고">
+          <span>목록 상단 광고 영역</span>
+          [##_revenue_list_upper_##]
+        </div>
 
-      <section class="post-list" data-post-list>
-        <s_list>
+        <section class="post-list post-list--archive" data-post-list>
           <s_list_rep>
             <article class="post-card post-card--list">
               <a class="post-card__thumb" href="[##_list_rep_link_##]" aria-label="[##_list_rep_title_##]">
@@ -115,8 +113,15 @@
               </div>
             </article>
           </s_list_rep>
-        </s_list>
+        </section>
 
+        <div class="ad-slot ad-slot--list-bottom" aria-label="목록 하단 광고">
+          <span>목록 하단 광고 영역</span>
+          [##_revenue_list_lower_##]
+        </div>
+      </s_list>
+
+      <section class="post-list" data-post-list>
         <s_article_rep>
           <s_index_article_rep>
             <article class="post-card">
@@ -213,11 +218,6 @@
           <span>목록 중간 광고 영역</span>
         </div>
       </template>
-
-      <div class="ad-slot ad-slot--list-bottom" aria-label="목록 하단 광고">
-        <span>목록 하단 광고 영역</span>
-        [##_revenue_list_lower_##]
-      </div>
 
       <s_paging>
         <nav class="pagination" aria-label="페이지 이동">
