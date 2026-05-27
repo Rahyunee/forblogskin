@@ -218,6 +218,34 @@ button {
   background: #f4f4f4;
 }
 
+.site-nav .tt_category {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.site-nav .tt_category > li {
+  display: flex;
+  gap: 2px;
+  align-items: center;
+}
+
+.site-nav .category_list {
+  display: flex;
+  gap: 2px;
+}
+
+.site-nav .sub_category_list,
+.site-nav .c_cnt {
+  display: none;
+}
+
+.ad-slot[hidden],
+.mobile-toc[hidden],
+.mobile-sticky-ad[hidden] {
+  display: none !important;
+}
+
 .header-actions {
   display: flex;
   gap: 8px;
@@ -949,6 +977,16 @@ button {
 
   .site-nav a {
     display: flex;
+  }
+
+  .site-nav .tt_category,
+  .site-nav .tt_category > li,
+  .site-nav .category_list {
+    display: block;
+  }
+
+  .site-nav .category_list {
+    margin-top: 4px;
   }
 
   .header-actions {

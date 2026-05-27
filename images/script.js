@@ -190,7 +190,32 @@
   function initAdPlaceholders() {
     insertArticleMiddleAd();
     insertListAd();
+    hideEmptyAdSlots();
     initMobileStickyAd();
+  }
+
+  function hideEmptyAdSlots() {
+    if (config.showAdPlaceholders) return;
+
+    Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), function (slot) {
+      if (!slotHasAdContent(slot)) {
+        slot.hidden = true;
+        slot.setAttribute("aria-hidden", "true");
+      }
+    });
+  }
+
+  function slotHasAdContent(slot) {
+    var clone = slot.cloneNode(true);
+    Array.prototype.forEach.call(clone.querySelectorAll("span"), function (label) {
+      label.remove();
+    });
+
+    var text = clone.textContent.replace(/\s+/g, "").trim();
+    var hasResolvedText = text && text.indexOf("[##_") === -1;
+    var hasAdElement = Boolean(clone.querySelector("ins.adsbygoogle, iframe, script, .kakao_ad_area, [data-ad-client], [data-ad-slot]"));
+
+    return hasResolvedText || hasAdElement;
   }
 
   function insertArticleMiddleAd() {

@@ -42,6 +42,25 @@ images/script.js
 <script src="./images/script.js" defer></script>
 ```
 
+## 상단 GNB/카테고리 설정
+
+현재 스킨의 상단 GNB는 티스토리 카테고리 치환자 `[##_category_list_##]`를 사용합니다.
+
+즉, 상단 메뉴는 프리뷰처럼 `홈/본문/사이드바/광고영역`으로 쓰는 것이 아니라 실제 운영 카테고리로 보이게 됩니다.
+
+관리 순서는 아래처럼 하면 됩니다.
+
+1. 티스토리 관리자에서 `콘텐츠 > 카테고리 관리`로 이동합니다.
+2. 상단에 노출하고 싶은 카테고리를 정리합니다.
+3. 카테고리명이 너무 길면 모바일에서 줄바꿈이 생길 수 있으므로 짧게 유지합니다.
+4. 하위 카테고리는 상단 GNB에서는 기본 숨김 처리하고, 사이드바 카테고리 영역에서 탐색하도록 둡니다.
+
+추천 카테고리 예시:
+
+```text
+전체 / 지원금 / 금융 / 생활정보 / IT / 리뷰
+```
+
 ## 광고 설정
 
 `skin.html` 상단의 설정값을 먼저 확인합니다.
@@ -52,6 +71,7 @@ images/script.js
     adsenseClient: "",
     articleMiddleAdAfterHeading: 2,
     listAdAfterItem: 4,
+    showAdPlaceholders: false,
     enableMobileStickyAd: false
   };
 </script>
@@ -59,7 +79,22 @@ images/script.js
 
 - `articleMiddleAdAfterHeading`: 본문 몇 번째 H2 뒤에 중간 광고 placeholder를 넣을지 결정합니다.
 - `listAdAfterItem`: 목록 몇 번째 카드 뒤에 목록 중간 광고 placeholder를 넣을지 결정합니다.
+- `showAdPlaceholders`: 광고 코드가 없을 때 광고 박스를 보여줄지 여부입니다. 운영 블로그에서는 `false` 권장입니다.
 - `enableMobileStickyAd`: 모바일 하단 고정 광고 사용 여부입니다. 처음에는 `false` 유지 권장입니다.
+
+## 애드센스 연결 전에는 무엇이 보이나요?
+
+기본값이 아래처럼 되어 있으면 광고 코드가 없는 슬롯은 자동으로 숨겨집니다.
+
+```js
+showAdPlaceholders: false
+```
+
+따라서 애드센스 연결 전 운영 블로그에서는 빈 광고 박스가 보이지 않는 것이 정상입니다.
+
+단, `preview.html`에서는 디자인 확인을 위해 `showAdPlaceholders: true`로 설정되어 있어서 광고 위치 placeholder가 보입니다. 이건 프리뷰 전용입니다.
+
+## 애드센스 연결 후 설정 순서
 
 티스토리 수익 메뉴에서 애드센스를 연결하면 아래 치환자가 자동 광고 영역으로 동작할 수 있습니다.
 
@@ -70,7 +105,26 @@ images/script.js
 [##_revenue_article_lower_##]
 ```
 
+권장 순서:
+
+1. 티스토리 관리자에서 `수익 > 애드센스 관리`로 이동합니다.
+2. 애드센스 계정을 연결합니다.
+3. 우선 티스토리 기본 광고 위치 중 `본문 상단`, `본문 하단`부터 켭니다.
+4. 블로그 화면에서 광고가 정상 노출되는지 확인합니다.
+5. 며칠 운영 후 RPM/체류시간/이탈률을 보고 중간 광고나 사이드바 광고를 추가합니다.
+
 수동 광고 코드를 넣고 싶다면 각 `.ad-slot` 영역 안에 AdSense 코드를 넣으면 됩니다. 단, 처음 적용 시에는 자동 광고와 수동 광고를 동시에 과하게 켜지 않는 것을 권장합니다.
+
+수동으로 추가하기 좋은 위치:
+
+```text
+본문 중간 광고: article-middle-ad-template 내부
+목록 중간 광고: list-ad-template 내부
+사이드바 광고: ad-slot--sidebar 내부
+모바일 하단 고정 광고: ad-slot--mobile-sticky 내부
+```
+
+수동 광고를 넣은 뒤에도 `showAdPlaceholders: false`는 그대로 두면 됩니다. 광고 코드가 들어간 슬롯은 숨겨지지 않고, 코드가 없는 슬롯만 자동으로 숨겨집니다.
 
 ## 적용 후 확인 체크리스트
 
