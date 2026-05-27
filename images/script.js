@@ -271,13 +271,29 @@
 
   function initThumbnails() {
     Array.prototype.forEach.call(document.querySelectorAll(".post-card__thumb img"), function (img) {
-      if (img.complete && img.naturalWidth === 0) {
-        img.classList.add("is-broken");
+      img.removeAttribute("width");
+      img.removeAttribute("height");
+
+      function markLoaded() {
+        if (img.naturalWidth > 0) {
+          img.classList.add("is-loaded");
+          img.classList.remove("is-broken");
+        } else {
+          markBroken();
+        }
       }
 
-      img.addEventListener("error", function () {
+      function markBroken() {
         img.classList.add("is-broken");
-      }, { once: true });
+        img.classList.remove("is-loaded");
+      }
+
+      if (img.complete) {
+        markLoaded();
+      } else {
+        img.addEventListener("load", markLoaded, { once: true });
+        img.addEventListener("error", markBroken, { once: true });
+      }
     });
   }
 
