@@ -351,7 +351,6 @@ button {
 .article,
 .post-card,
 .sidebar-widget,
-.related-panel,
 .comments-panel {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -502,12 +501,6 @@ button {
   background: #f5f5f5;
   border: 1px solid #eeeeee;
   border-radius: 4px;
-}
-
-.post-card__category--context {
-  color: #666;
-  background: #f7f7f7;
-  border-style: dashed;
 }
 
 .post-card h2 {
@@ -862,18 +855,15 @@ button {
   margin-top: 24px;
 }
 
-.related-panel,
 .comments-panel,
 .sidebar-widget {
   padding: 20px;
 }
 
-.related-panel,
 .comments-panel {
   margin-top: 22px;
 }
 
-.related-panel h2,
 .comments-panel h2,
 .sidebar-widget h2 {
   margin: 0 0 13px;
@@ -881,12 +871,6 @@ button {
   font-size: 18px;
   line-height: 1.4;
   letter-spacing: -0.035em;
-}
-
-.related-panel p {
-  margin: 0;
-  color: var(--text-muted);
-  font-size: 15px;
 }
 
 .sidebar-widget ul,
@@ -1221,7 +1205,6 @@ button {
   .post-card,
   .article,
   .sidebar-widget,
-  .related-panel,
   .comments-panel {
     border-radius: 4px;
   }
