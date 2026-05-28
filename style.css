@@ -520,15 +520,34 @@ button {
 .post-card h2 img,
 .post-card h2 .new,
 .post-card h2 .ico_new,
-.post-card h2 .icon-new {
-  display: inline-block;
-  width: auto;
-  max-width: none;
-  height: 13px;
-  margin-left: 4px;
-  vertical-align: -1px;
-  border-radius: 0;
-  object-fit: contain;
+.post-card h2 .icon-new,
+.post-card h2 img[src*="new_ico"],
+.post-card h2 a img[src*="new_ico"] {
+  display: inline-block !important;
+  width: 15px !important;
+  max-width: none !important;
+  height: 15px !important;
+  max-height: none !important;
+  margin-left: 5px !important;
+  padding-left: 0 !important;
+  vertical-align: -2px !important;
+  border-radius: 0 !important;
+  object-fit: contain !important;
+}
+
+.site-nav img[src*="new_ico"],
+.sidebar-widget img[src*="new_ico"],
+.compact-list img[src*="new_ico"] {
+  display: inline-block !important;
+  width: 13px !important;
+  max-width: none !important;
+  height: 13px !important;
+  max-height: none !important;
+  margin-left: 4px !important;
+  padding-left: 0 !important;
+  vertical-align: -1px !important;
+  border-radius: 0 !important;
+  object-fit: contain !important;
 }
 
 .post-card p {
