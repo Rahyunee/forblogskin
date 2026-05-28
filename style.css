@@ -504,6 +504,12 @@ button {
   border-radius: 4px;
 }
 
+.post-card__category--context {
+  color: #666;
+  background: #f7f7f7;
+  border-style: dashed;
+}
+
 .post-card h2 {
   margin: 0;
   overflow: visible;
