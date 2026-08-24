@@ -1,0 +1,2033 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.2.0' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<head>
+  <b:include name='theme-head'/>
+  <b:skin version='1.0.0'><![CDATA[/*
+-----------------------------------------------
+Blogger Template Style
+Name:        Quietline
+Version:     1.0.0
+-----------------------------------------------
+
+<Variable name="keycolor" description="Main Color" type="color" default="#1f4f46" value="#1f4f46"/>
+<Group description="Theme Colors" selector="body">
+<Variable name="body.background.color" description="Background" type="color" default="#f6f6f4" value="#f6f6f4"/>
+<Variable name="body.text.color" description="Text" type="color" default="#222222" value="#222222"/>
+<Variable name="posts.title.color" description="Title" type="color" default="#111111" value="#111111"/>
+<Variable name="main.color" description="Accent" type="color" default="#1f4f46" value="#1f4f46"/>
+</Group>
+<Variable name="body.text.font" description="Font" hideEditor="true" type="font" default="16px sans-serif" value="16px sans-serif"/>
+<Variable name="posts.background.color" description="Surface" hideEditor="true" type="color" default="#ffffff" value="#ffffff"/>
+*/
+
+:root {
+  --bg: #f6f6f4;
+  --surface: #ffffff;
+  --text: #222222;
+  --text-strong: #111111;
+  --text-muted: #6b6b6b;
+  --line: #ebebe8;
+  --line-strong: #d8d8d4;
+  --accent: #1f4f46;
+  --ad-bg: #fafaf8;
+  --ad-line: #e3e3de;
+  --header-h: 64px;
+  --content: 720px;
+  --sidebar: 280px;
+  --shell: 1080px;
+  --gap: 40px;
+  --radius: 8px;
+  --font: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--bg);
+  font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+img, video, iframe { max-width: 100%; }
+img { height: auto; vertical-align: middle; }
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+
+.sr-only,
+.skip-link {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.skip-link:focus {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 1200;
+  width: auto;
+  height: auto;
+  padding: 8px 12px;
+  clip: auto;
+  color: #fff;
+  background: #111;
+  border-radius: 4px;
+}
+
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1100;
+  height: 2px;
+  background: transparent;
+}
+
+.reading-progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--accent);
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  height: var(--header-h);
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+}
+
+.site-header__inner {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  max-width: var(--shell);
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.brand {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.brand__title {
+  display: block;
+  overflow: hidden;
+  color: var(--text-strong);
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.brand__desc { display: none; }
+
+.site-nav {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.site-nav::-webkit-scrollbar { display: none; }
+
+.site-nav ul,
+.site-nav li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 10px;
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  border-radius: 6px;
+}
+
+.site-nav a:hover,
+.site-nav .selected a {
+  color: #111;
+  background: #f2f2ef;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.search-form {
+  display: flex;
+  width: 210px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.search-form input {
+  width: 100%;
+  min-width: 0;
+  padding: 8px 10px;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+.search-form button,
+.search-form input[type="submit"] {
+  padding: 8px 12px;
+  color: #fff;
+  background: #222;
+  border: 0;
+  border-radius: 0 5px 5px 0;
+}
+
+.icon-button {
+  display: none;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  color: #333;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.mobile-menu-button span {
+  display: block;
+  width: 16px;
+  height: 2px;
+  margin: 2px 0;
+  background: currentColor;
+}
+
+.site-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--sidebar);
+  gap: var(--gap);
+  max-width: var(--shell);
+  padding: 28px 20px 72px;
+  margin: 0 auto;
+}
+
+.site-main,
+.site-sidebar { min-width: 0; }
+
+.sidebar-sticky {
+  position: sticky;
+  top: calc(var(--header-h) + 18px);
+  display: grid;
+  gap: 14px;
+}
+
+.archive-head,
+.article,
+.post-card,
+.sidebar-widget,
+.comments-panel,
+.pager {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.archive-head {
+  padding: 22px 24px;
+  margin-bottom: 18px;
+}
+
+.archive-head h1 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 24px;
+  line-height: 1.35;
+  letter-spacing: -0.04em;
+}
+
+.archive-head p {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.post-list {
+  display: grid;
+  gap: 12px;
+}
+
+.post-card {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  overflow: hidden;
+}
+
+.post-card:hover { border-color: var(--line-strong); }
+
+.post-card__thumb {
+  position: relative;
+  display: block;
+  min-height: 118px;
+  overflow: hidden;
+  background: #f0f0ec;
+}
+
+.post-card__thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.post-card__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 16px 18px;
+}
+
+.post-card__label {
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.post-card h2 {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: 18px;
+  line-height: 1.45;
+  letter-spacing: -0.03em;
+}
+
+.post-card h2 a:hover { color: var(--accent); }
+
+.post-card p {
+  display: -webkit-box;
+  margin: 8px 0 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.post-card__meta {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  color: #8a8a8a;
+  font-size: 12px;
+}
+
+.article {
+  max-width: var(--content);
+  padding: 32px 36px 40px;
+  margin: 0 auto;
+}
+
+.article-header { padding-bottom: 20px; }
+
+.article-label {
+  display: inline-block;
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.article-header h1,
+.article .post-title {
+  margin: 0;
+  color: var(--text-strong);
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 800;
+  line-height: 1.32;
+  letter-spacing: -0.045em;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
+.article-body,
+.post-body {
+  margin-top: 8px;
+  color: #2a2a2a;
+  font-size: 17.5px;
+  line-height: 1.88;
+  letter-spacing: -0.012em;
+}
+
+.article-body > *:first-child,
+.post-body > *:first-child { margin-top: 0; }
+
+.article-body p,
+.post-body p { margin: 1.2em 0; }
+
+.article-body a,
+.post-body a {
+  color: #17352f;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #c5d4d0;
+  text-underline-offset: 0.18em;
+}
+
+.article-body a:hover,
+.post-body a:hover { text-decoration-color: var(--accent); }
+
+.article-body h2,
+.post-body h2,
+.article-body h3,
+.post-body h3,
+.article-body h4,
+.post-body h4 {
+  color: var(--text-strong);
+  line-height: 1.4;
+  letter-spacing: -0.035em;
+  scroll-margin-top: calc(var(--header-h) + 16px);
+}
+
+.article-body h2,
+.post-body h2 {
+  padding-top: 12px;
+  margin: 2.4em 0 0.7em;
+  font-size: 26px;
+}
+
+.article-body h3,
+.post-body h3 {
+  margin: 1.8em 0 0.6em;
+  font-size: 21px;
+}
+
+.article-body h4,
+.post-body h4 {
+  margin: 1.4em 0 0.5em;
+  font-size: 18px;
+}
+
+.article-body ul,
+.post-body ul,
+.article-body ol,
+.post-body ol {
+  padding-left: 1.3em;
+  margin: 1.1em 0;
+}
+
+.article-body li + li,
+.post-body li + li { margin-top: 0.35em; }
+
+.article-body blockquote,
+.post-body blockquote {
+  margin: 1.6em 0;
+  padding: 4px 0 4px 16px;
+  color: #3a3a3a;
+  background: transparent;
+  border-left: 3px solid var(--accent);
+}
+
+.article-body pre,
+.post-body pre {
+  padding: 16px;
+  margin: 1.6em 0;
+  overflow-x: auto;
+  color: #f3f3f0;
+  background: #1d1f1e;
+  border-radius: 6px;
+}
+
+.article-body code,
+.post-body code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+
+.article-body :not(pre) > code,
+.post-body :not(pre) > code {
+  padding: 0.12em 0.35em;
+  color: #8a2b2b;
+  background: #f7f7f4;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.article-body img,
+.post-body img {
+  display: block;
+  margin: 1.6em auto;
+  border-radius: 6px;
+}
+
+.article-body table,
+.post-body table {
+  width: 100%;
+  margin: 1.6em 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.article-body th,
+.post-body th,
+.article-body td,
+.post-body td {
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+}
+
+.article-body th,
+.post-body th { background: #f7f7f4; }
+
+.article-toc {
+  padding: 16px 18px;
+  margin: 20px 0 8px;
+  background: #fafaf8;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.article-toc.is-empty { display: none; }
+
+.article-toc__title {
+  margin-bottom: 8px;
+  color: #333;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.article-toc ol,
+.mobile-toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.article-toc li + li,
+.mobile-toc li + li { margin-top: 2px; }
+
+.article-toc a,
+.mobile-toc a {
+  display: block;
+  padding: 5px 8px;
+  color: #5c5c5c;
+  font-size: 14px;
+  line-height: 1.45;
+  border-radius: 4px;
+}
+
+.article-toc a.is-active,
+.article-toc a:hover,
+.mobile-toc a:hover {
+  color: #111;
+  background: #eee;
+}
+
+.article-toc .toc-level-3 a,
+.mobile-toc .toc-level-3 a {
+  padding-left: 20px;
+  font-size: 13px;
+}
+
+.ad-slot {
+  display: grid;
+  min-height: 100px;
+  place-items: center;
+  padding: 10px;
+  margin: 20px 0;
+  color: #9a9a96;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  background: var(--ad-bg);
+  border: 1px dashed var(--ad-line);
+  border-radius: 6px;
+}
+
+.ad-slot span {
+  padding: 3px 7px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+}
+
+.ad-slot[hidden] { display: none !important; }
+
+.ad-slot--article-top,
+.ad-slot--article-bottom { min-height: 250px; }
+
+.ad-slot--article-middle {
+  min-height: 280px;
+  margin: 36px 0;
+}
+
+.ad-slot--sidebar {
+  min-height: 250px;
+  margin: 0;
+}
+
+.ad-slot--list-top,
+.ad-slot--list-middle,
+.ad-slot--list-bottom { min-height: 120px; }
+
+.article-labels,
+.article-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 22px;
+  margin-top: 24px;
+  border-top: 1px solid var(--line);
+}
+
+.article-labels a,
+.tag-cloud a {
+  padding: 5px 9px;
+  color: #666;
+  font-size: 13px;
+  background: #f7f7f4;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+}
+
+.article-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.article-actions button {
+  padding: 8px 12px;
+  color: #fff;
+  background: #222;
+  border: 0;
+  border-radius: 6px;
+}
+
+.post-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.post-nav a {
+  display: block;
+  padding: 14px 16px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.post-nav span {
+  display: block;
+  color: #888;
+  font-size: 12px;
+}
+
+.post-nav p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.post-nav .is-empty {
+  color: #bbb;
+  pointer-events: none;
+}
+
+.comments-panel,
+.sidebar-widget { padding: 18px; }
+
+.comments-panel { margin-top: 18px; }
+
+.comments-panel h2,
+.comments-panel h3,
+.sidebar-widget h3,
+.widget-title h3 {
+  margin: 0 0 12px;
+  color: #222;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.sidebar-widget ul,
+.sidebar-widget ol,
+.Label ul,
+.PopularPosts ul,
+.BlogArchive ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-widget li + li,
+.Label li + li,
+.PopularPosts li + li,
+.BlogArchive li + li { margin-top: 8px; }
+
+.sidebar-widget a,
+.Label a,
+.PopularPosts a,
+.BlogArchive a {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.sidebar-widget a:hover,
+.Label a:hover,
+.PopularPosts a:hover { color: var(--accent); }
+
+.PopularPosts .post-thumb {
+  width: 52px;
+  height: 52px;
+  margin-right: 10px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.PopularPosts .post {
+  display: flex;
+  align-items: flex-start;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pager,
+.blog-pager {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 22px;
+  padding: 12px;
+}
+
+.pager a,
+.blog-pager a {
+  min-width: 40px;
+  padding: 8px 12px;
+  color: #555;
+  font-weight: 700;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+.floating-toc-button {
+  position: fixed;
+  right: 16px;
+  bottom: 18px;
+  z-index: 850;
+  display: none;
+  padding: 10px 12px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  background: #222;
+  border: 0;
+  border-radius: 6px;
+}
+
+.mobile-toc[hidden],
+.mobile-sticky-ad[hidden] { display: none !important; }
+
+.mobile-toc {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.mobile-toc__panel {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  max-height: 70vh;
+  overflow: auto;
+  padding: 16px;
+  background: #fff;
+  border-radius: 12px 12px 0 0;
+}
+
+.mobile-toc__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.mobile-toc__head button,
+.mobile-sticky-ad button {
+  padding: 6px 10px;
+  color: #fff;
+  background: #222;
+  border: 0;
+  border-radius: 4px;
+}
+
+.mobile-sticky-ad {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 800;
+  padding: 8px 8px 8px;
+  background: #fff;
+  border-top: 1px solid var(--line);
+}
+
+.site-footer {
+  padding: 28px 20px 40px;
+  color: #888;
+  font-size: 13px;
+  text-align: center;
+  border-top: 1px solid var(--line);
+}
+
+.site-footer a { color: #555; }
+.site-footer nav { display: flex; gap: 12px; justify-content: center; margin-top: 8px; }
+
+.queryMessage {
+  padding: 22px 24px;
+  margin-bottom: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.queryMessage a { margin-left: 8px; color: var(--accent); font-weight: 700; }
+
+.errorWrap {
+  padding: 48px 24px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.index-post {
+  display: grid;
+  grid-template-columns: 168px minmax(0, 1fr);
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+.index-post:hover { border-color: var(--line-strong); }
+
+.index-post .post-image-wrap,
+.index-post .post-image-link {
+  position: relative;
+  display: block;
+  min-height: 118px;
+  overflow: hidden;
+  background: #f0f0ec;
+}
+
+.index-post .post-thumb {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.index-post .post-info { padding: 16px 18px; }
+
+.index-post .post-title {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.index-post .post-snippet {
+  display: -webkit-box;
+  margin: 8px 0 0;
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: 14px;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.Header h1,
+.Header .title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.Header img { max-height: 36px; width: auto; }
+
+.PageList ul,
+.PageList li { margin: 0; padding: 0; list-style: none; }
+
+.PageList ul { display: flex; gap: 4px; }
+
+.BlogSearch .widget-content { margin: 0; }
+
+.widget { margin: 0; }
+.site-nav .widget-content,
+.header-actions .widget-content,
+.brand .widget-content { margin: 0; padding: 0; }
+.site-nav .widget,
+.header-actions .widget { display: block; }
+
+#ad-sources { display: none; }
+body#layout #ad-sources {
+  display: grid;
+  gap: 12px;
+  max-width: 1080px;
+  padding: 20px;
+  margin: 0 auto;
+}
+body#layout #ad-sources .widget {
+  padding: 12px;
+  background: #fff;
+  border: 1px dashed #ccc;
+}
+
+.comment { padding: 14px 0; border-top: 1px solid var(--line); }
+.comment-author { font-weight: 700; }
+.comment-body { margin-top: 6px; }
+.comment-footer { margin-top: 6px; color: #888; font-size: 12px; }
+.avatar-image-container img { border-radius: 50%; }
+
+.navbar,
+#navbar-iframe,
+.widget-item-control,
+.home-link,
+.feed-links { display: none !important; }
+
+body#layout .site-header,
+body#layout .site-shell { position: static; }
+body#layout .ad-slot { min-height: 80px; }
+
+@media (max-width: 980px) {
+  .site-shell {
+    grid-template-columns: 1fr;
+    padding-bottom: 88px;
+  }
+
+  .sidebar-sticky { position: static; }
+
+  .icon-button.mobile-menu-button { display: grid; }
+
+  .site-nav {
+    position: absolute;
+    top: var(--header-h);
+    right: 0;
+    left: 0;
+    display: none;
+    padding: 10px 16px 16px;
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .site-nav.is-open { display: block; }
+
+  .site-nav ul { flex-direction: column; align-items: stretch; }
+
+  .floating-toc-button { display: inline-flex; }
+
+  .article { padding: 22px 18px 28px; }
+
+  .article-body,
+  .post-body {
+    font-size: 16.5px;
+    line-height: 1.86;
+  }
+
+  .ad-slot--article-top,
+  .ad-slot--article-bottom,
+  .ad-slot--article-middle { min-height: 100px; }
+}
+
+@media (max-width: 720px) {
+  .search-form { width: 42vw; min-width: 132px; }
+
+  .post-card,
+  .index-post { grid-template-columns: 108px minmax(0, 1fr); }
+
+  .post-card__thumb,
+  .index-post .post-image-wrap { min-height: 88px; }
+
+  .post-card__body { padding: 12px 12px 12px 0; }
+
+  .post-card h2 { font-size: 16px; }
+
+  .post-card p,
+  .index-post .post-snippet { display: none; }
+
+  .post-nav { grid-template-columns: 1fr; }
+}
+
+]]></b:skin>
+  <b:template-skin>
+    <b:variable default='960px' name='content.width' type='length' value='1080px'/>
+    <b:variable default='0' name='main.column.left.width' type='length' value='0'/>
+    <b:variable default='280px' name='main.column.right.width' type='length' value='280px'/>
+  </b:template-skin>
+</head>
+<body>
+  <b:class cond='data:view.isHomepage' name='home'/>
+  <b:class cond='data:view.isPost' name='item'/>
+  <b:class cond='data:view.isPage' name='static-page'/>
+  <b:class cond='data:view.isArchive or data:view.search.label or data:view.search.query' name='archive'/>
+  <b:class cond='data:view.isError' name='error404'/>
+
+  <b:defaultmarkups>
+    <b:defaultmarkup type='Common'>
+      <b:includable id='widget-title'>
+        <b:if cond='data:title != &quot;&quot;'>
+          <div class='widget-title'><h3 class='title'><data:title/></h3></div>
+        </b:if>
+      </b:includable>
+      <b:includable id='theme-head'>
+        <meta content='width=device-width, initial-scale=1' name='viewport'/>
+        <title><data:view.title.escaped/></title>
+        <meta expr:content='data:view.description.escaped' name='description'/>
+        <meta expr:content='&quot;text/html; charset=&quot; + data:blog.encoding' http-equiv='Content-Type'/>
+        <meta content='blogger' name='generator'/>
+        <meta content='#ffffff' name='theme-color'/>
+        <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
+        <link expr:href='data:view.url.canonical' rel='canonical'/>
+        <data:blog.feedLinks/>
+        <data:blog.meTag/>
+        <b:include name='openGraph'/>
+      </b:includable>
+      <b:includable id='openGraph'>
+        <b:if cond='data:view.isHomepage'><meta content='website' property='og:type'/></b:if>
+        <b:if cond='data:view.isSingleItem'><meta content='article' property='og:type'/></b:if>
+        <meta expr:content='data:view.title.escaped' property='og:title'/>
+        <meta expr:content='data:blog.url.canonical' property='og:url'/>
+        <meta expr:content='data:view.description.escaped' property='og:description'/>
+        <meta expr:content='data:blog.title.escaped' property='og:site_name'/>
+        <b:if cond='data:view.featuredImage'>
+          <meta expr:content='data:view.featuredImage' property='og:image'/>
+          <meta expr:content='data:view.featuredImage' name='twitter:image'/>
+        </b:if>
+        <meta content='summary_large_image' name='twitter:card'/>
+        <meta expr:content='data:view.title.escaped' name='twitter:title'/>
+        <meta expr:content='data:view.description.escaped' name='twitter:description'/>
+        <b:if cond='data:view.isHomepage'>
+          <script type='application/ld+json'>{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;WebSite&quot;,&quot;name&quot;:&quot;<data:view.title.escaped/>&quot;,&quot;url&quot;:&quot;<data:view.url.canonical/>&quot;,&quot;potentialAction&quot;:{&quot;@type&quot;:&quot;SearchAction&quot;,&quot;target&quot;:&quot;<data:view.url.canonical/>search?q={search_term_string}&quot;,&quot;query-input&quot;:&quot;required name=search_term_string&quot;}}</script>
+        </b:if>
+      </b:includable>
+    </b:defaultmarkup>
+    <b:defaultmarkup type='Header'>
+      <b:includable id='main' var='this'>
+        <a class='brand__title' expr:href='data:blog.homepageUrl.canonical'><data:title/></a>
+      </b:includable>
+    </b:defaultmarkup>
+    <b:defaultmarkup type='PageList'>
+      <b:includable id='main'><b:include name='content'/></b:includable>
+      <b:includable id='content'>
+        <ul>
+          <b:loop values='data:links' var='link'>
+            <li>
+              <b:class cond='data:link.isCurrentPage' name='selected'/>
+              <a expr:href='data:link.target'><data:link.title/></a>
+            </li>
+          </b:loop>
+        </ul>
+      </b:includable>
+    </b:defaultmarkup>
+    <b:defaultmarkup type='BlogSearch'>
+      <b:includable id='main'><b:include name='content'/></b:includable>
+      <b:includable id='content'>
+        <form class='search-form' expr:action='data:blog.searchUrl' role='search'>
+          <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
+          <b:include name='urlParamsAsFormInput'/>
+          <input autocomplete='off' class='search-input' expr:aria-label='data:messages.searchThisBlog' expr:placeholder='data:messages.searchThisBlog' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q'/>
+          <input class='search-action' expr:value='data:messages.search.escaped' type='submit'/>
+        </form>
+      </b:includable>
+    </b:defaultmarkup>
+    <b:defaultmarkup type='Label'>
+      <b:includable id='main'>
+        <b:include name='widget-title'/>
+        <div class='widget-content'>
+          <ul>
+            <b:loop values='data:labels' var='label'>
+              <li>
+                <a expr:href='data:label.url'><data:label.name/> <span>(<data:label.count/>)</span></a>
+              </li>
+            </b:loop>
+          </ul>
+        </div>
+      </b:includable>
+    </b:defaultmarkup>
+    <b:defaultmarkup type='PopularPosts'>
+      <b:includable id='main' var='this'>
+        <b:include name='widget-title'/>
+        <div class='widget-content'>
+          <ol>
+            <b:loop values='data:posts' var='post'>
+              <li><a expr:href='data:post.url'><data:post.title/></a></li>
+            </b:loop>
+          </ol>
+        </div>
+      </b:includable>
+    </b:defaultmarkup>
+    <b:defaultmarkup type='BlogArchive'>
+      <b:includable id='main' var='this'>
+        <b:include name='widget-title'/>
+        <div class='widget-content'>
+          <ul>
+            <b:loop values='data:data' var='i'>
+              <li><a expr:href='data:i.url'><data:i.name/></a></li>
+            </b:loop>
+          </ul>
+        </div>
+      </b:includable>
+    </b:defaultmarkup>
+  </b:defaultmarkups>
+
+  <b:include data='blog' name='google-analytics'/>
+  <a class='skip-link' href='#content'>본문 바로가기</a>
+  <div class='reading-progress' aria-hidden='true'><span/></div>
+
+  <header class='site-header'>
+    <div class='site-header__inner'>
+      <div class='brand'>
+        <b:section id='header' maxwidgets='1' name='블로그 제목' showaddelement='no'>
+          <b:widget id='Header1' locked='true' title='Quietline' type='Header' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='displayUrl'/>
+              <b:widget-setting name='displayHeight'>0</b:widget-setting>
+              <b:widget-setting name='sectionWidth'>-1</b:widget-setting>
+              <b:widget-setting name='useImage'>false</b:widget-setting>
+              <b:widget-setting name='shrinkToFit'>true</b:widget-setting>
+              <b:widget-setting name='imagePlacement'>REPLACE</b:widget-setting>
+              <b:widget-setting name='displayWidth'>0</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main' var='this'>
+              <a class='brand__title' expr:href='data:blog.homepageUrl.canonical'><data:title/></a>
+            </b:includable>
+            <b:includable id='description'><b:comment>hidden</b:comment></b:includable>
+            <b:includable id='title'>
+              <a class='brand__title' expr:href='data:blog.homepageUrl.canonical'><data:title/></a>
+            </b:includable>
+            <b:includable id='image'>
+              <a class='brand__title' expr:href='data:blog.homepageUrl.canonical'><img expr:alt='data:title' expr:src='data:image'/></a>
+            </b:includable>
+            <b:includable id='behindImageStyle'><b:comment>unused</b:comment></b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+      <button class='icon-button mobile-menu-button' data-menu-toggle='true' type='button' aria-label='메뉴 열기' aria-expanded='false'>
+        <span/><span/><span/>
+      </button>
+      <nav class='site-nav' data-site-nav='true' aria-label='메뉴'>
+        <b:section id='header-nav' maxwidgets='1' name='상단 메뉴' showaddelement='yes'>
+          <b:widget id='PageList1' locked='false' title='페이지 목록' type='PageList' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='pageListJson'><![CDATA[{"home": {"href": "/", "position": 0, "title": "홈"}}]]></b:widget-setting>
+              <b:widget-setting name='homeTitle'>홈</b:widget-setting>
+              <b:widget-setting name='homeLink'>true</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'><b:include name='content'/></b:includable>
+            <b:includable id='content'>
+              <ul>
+                <b:loop values='data:links' var='link'>
+                  <li>
+                    <b:class cond='data:link.isCurrentPage' name='selected'/>
+                    <a expr:href='data:link.target'><data:link.title/></a>
+                  </li>
+                </b:loop>
+              </ul>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </nav>
+      <div class='header-actions'>
+        <b:section id='header-search' maxwidgets='1' name='검색' showaddelement='no'>
+          <b:widget id='BlogSearch1' locked='true' title='검색' type='BlogSearch' version='2' visible='true'>
+            <b:includable id='main'><b:include name='content'/></b:includable>
+            <b:includable id='content'>
+              <form class='search-form' expr:action='data:blog.searchUrl' role='search'>
+                <b:attr cond='not data:view.isPreview' name='target' value='_top'/>
+                <b:include name='urlParamsAsFormInput'/>
+                <input autocomplete='off' expr:aria-label='data:messages.searchThisBlog' expr:placeholder='data:messages.searchThisBlog' expr:value='data:view.isSearch ? data:view.search.query.escaped : &quot;&quot;' name='q'/>
+                <input expr:value='data:messages.search.escaped' type='submit'/>
+              </form>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+    </div>
+  </header>
+
+  <div class='site-shell'>
+    <main class='site-main' id='content'>
+      <b:if cond='data:view.isMultipleItems'>
+        <div class='ad-slot ad-slot--list-top' aria-label='목록 상단 광고'><span class='ad-label'>AD</span></div>
+      </b:if>
+
+      <b:section class='main' id='main' maxwidgets='1' name='본문' showaddelement='no'>
+        <b:widget id='Blog1' locked='true' title='블로그 게시물' type='Blog' version='2' visible='true'>
+          <b:widget-settings>
+            <b:widget-setting name='commentLabel'>댓글</b:widget-setting>
+            <b:widget-setting name='showShareButtons'>false</b:widget-setting>
+            <b:widget-setting name='authorLabel'>작성자</b:widget-setting>
+            <b:widget-setting name='style.unittype'>TextAndImage</b:widget-setting>
+            <b:widget-setting name='showAuthorProfile'>false</b:widget-setting>
+            <b:widget-setting name='style.layout'>1x1</b:widget-setting>
+            <b:widget-setting name='showLocation'>false</b:widget-setting>
+            <b:widget-setting name='showTimestamp'>true</b:widget-setting>
+            <b:widget-setting name='postsPerAd'>3</b:widget-setting>
+            <b:widget-setting name='showDateHeader'>false</b:widget-setting>
+            <b:widget-setting name='showCommentLink'>true</b:widget-setting>
+            <b:widget-setting name='showAuthor'>true</b:widget-setting>
+            <b:widget-setting name='showLabels'>true</b:widget-setting>
+            <b:widget-setting name='postLabelsLabel'>라벨</b:widget-setting>
+            <b:widget-setting name='showBacklinks'>false</b:widget-setting>
+            <b:widget-setting name='showInlineAds'>false</b:widget-setting>
+            <b:widget-setting name='showReactions'>false</b:widget-setting>
+          </b:widget-settings>
+          <b:includable id='main' var='this'>
+            <b:include name='searchMessage'/>
+            <div class='blog-posts hfeed'>
+              <b:class cond='data:view.isMultipleItems' name='post-list'/>
+              <b:attr cond='data:view.isMultipleItems' name='data-post-list' value='true'/>
+              <b:loop index='i' values='data:posts' var='post'>
+                <b:include data='post' name='postCommentsAndAd'/>
+              </b:loop>
+            </div>
+            <b:include cond='data:view.isMultipleItems' name='indexBlogPager'/>
+          </b:includable>
+          <b:includable id='searchMessage'>
+            <b:if cond='data:view.search.query or data:view.search.label or data:view.isArchive'>
+              <section class='archive-head queryMessage'>
+                <h1>
+                  <b:if cond='data:view.search.query'><data:view.search.resultsMessageHtml/></b:if>
+                  <b:if cond='data:view.search.label'><data:view.search.resultsMessageHtml/></b:if>
+                  <b:if cond='data:view.isArchive'><data:view.archive.rangeMessage/></b:if>
+                </h1>
+              </section>
+            </b:if>
+            <b:if cond='data:view.isError'>
+              <div class='errorWrap'>
+                <h1>페이지를 찾을 수 없습니다</h1>
+                <p><a expr:href='data:blog.homepageUrl'>홈으로 돌아가기</a></p>
+              </div>
+            </b:if>
+          </b:includable>
+          <b:includable id='postCommentsAndAd' var='post'>
+            <article class='hentry'>
+              <b:class cond='data:view.isMultipleItems' name='index-post post-card'/>
+              <b:class cond='data:view.isSingleItem' name='item-post article'/>
+              <b:include data='post' name='post'/>
+            </article>
+            <b:if cond='data:view.isSingleItem and data:post.allowComments'>
+              <section class='comments-panel'>
+                <b:include data='post' name='commentPicker'/>
+              </section>
+            </b:if>
+          </b:includable>
+          <b:includable id='post' var='post'>
+            <b:if cond='data:view.isMultipleItems'><b:include data='post' name='indexPost'/></b:if>
+            <b:if cond='data:view.isSingleItem'><b:include data='post' name='itemPost'/></b:if>
+          </b:includable>
+          <b:includable id='indexPost' var='post'>
+            <a class='post-card__thumb post-image-link' expr:href='data:post.url'>
+              <b:if cond='data:post.featuredImage'>
+                <img class='post-thumb' expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 480, &quot;3:2&quot;)' loading='lazy'/>
+              </b:if>
+            </a>
+            <div class='post-card__body post-info'>
+              <b:if cond='data:post.labels'>
+                <a class='post-card__label' expr:href='data:post.labels.first.url'><data:post.labels.first.name/></a>
+              </b:if>
+              <h2 class='post-title'><a expr:href='data:post.url'><data:post.title/></a></h2>
+              <p class='post-snippet'><b:eval expr='data:post.snippets.short snippet { length: 110 }'/></p>
+              <div class='post-card__meta post-meta'>
+                <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
+              </div>
+            </div>
+          </b:includable>
+          <b:includable id='itemPost' var='post'>
+            <header class='article-header'>
+              <b:if cond='data:post.labels'>
+                <a class='article-label' expr:href='data:post.labels.first.url'><data:post.labels.first.name/></a>
+              </b:if>
+              <h1 class='post-title'><data:post.title/></h1>
+              <div class='article-meta post-meta'>
+                <time expr:datetime='data:post.date.iso8601'><data:post.date/></time>
+                <span><data:post.author.name/></span>
+              </div>
+            </header>
+            <div class='ad-slot ad-slot--article-top' aria-label='본문 상단 광고'><span class='ad-label'>AD</span></div>
+            <nav class='article-toc' data-toc='true' aria-label='목차'>
+              <div class='article-toc__title'>목차</div>
+              <ol data-toc-list='true'/>
+            </nav>
+            <div class='post-body article-body' data-article-body='true' expr:id='&quot;post-body-&quot; + data:post.id'>
+              <data:post.body/>
+            </div>
+            <template id='article-middle-ad-template'>
+              <div class='ad-slot ad-slot--article-middle' data-auto-ad='middle' aria-label='본문 중간 광고'><span class='ad-label'>AD</span></div>
+            </template>
+            <div class='ad-slot ad-slot--article-bottom' aria-label='본문 하단 광고'><span class='ad-label'>AD</span></div>
+            <b:if cond='data:post.labels'>
+              <section class='article-labels'>
+                <b:loop values='data:post.labels' var='label'>
+                  <a expr:href='data:label.url' rel='tag'><data:label.name/></a>
+                </b:loop>
+              </section>
+            </b:if>
+            <section class='article-actions'>
+              <button data-copy-link='true' type='button'>링크 복사</button>
+              <button data-native-share='true' type='button'>공유하기</button>
+            </section>
+            <nav class='post-nav'>
+              <b:if cond='data:newerPageUrl'>
+                <a expr:href='data:newerPageUrl'><span>다음 글</span><p><data:messages.newer/></p></a>
+                <b:else/>
+                <a class='is-empty'><span>다음 글</span><p>없음</p></a>
+              </b:if>
+              <b:if cond='data:olderPageUrl'>
+                <a expr:href='data:olderPageUrl'><span>이전 글</span><p><data:messages.older/></p></a>
+                <b:else/>
+                <a class='is-empty'><span>이전 글</span><p>없음</p></a>
+              </b:if>
+            </nav>
+          </b:includable>
+          <b:includable id='indexBlogPager'>
+            <nav class='pager blog-pager' id='blog-pager'>
+              <b:if cond='data:newerPageUrl'>
+                <a class='blog-pager-newer-link' expr:href='data:newerPageUrl'><data:messages.newer/></a>
+              </b:if>
+              <b:if cond='data:olderPageUrl'>
+                <a class='blog-pager-older-link' expr:href='data:olderPageUrl'><data:messages.older/></a>
+              </b:if>
+            </nav>
+          </b:includable>
+          <b:includable id='headerByline' var='post'>
+            <div class='post-meta'>
+              <b:include data='post' name='postAuthor'/>
+              <b:include data='post' name='postTimestamp'/>
+            </div>
+          </b:includable>
+          <b:includable id='footerBylines' var='post'><b:include data='post' name='postLabels'/></b:includable>
+          <b:includable id='postAuthor' var='post'><span class='post-author'><data:post.author.name/></span></b:includable>
+          <b:includable id='postTimestamp' var='post'><time class='post-date' expr:datetime='data:post.date.iso8601'><data:post.date/></time></b:includable>
+          <b:includable id='postTitle' var='post'>
+            <b:if cond='data:view.isMultipleItems'><h2 class='post-title'><a expr:href='data:post.url'><data:post.title/></a></h2></b:if>
+            <b:if cond='data:view.isSingleItem'><h1 class='post-title'><data:post.title/></h1></b:if>
+          </b:includable>
+          <b:includable id='postHeader' var='post'><b:include data='post' name='postTitle'/></b:includable>
+          <b:includable id='postBody' var='post'><div class='post-body'><data:post.body/></div></b:includable>
+          <b:includable id='postBodySnippet' var='post'><b:include data='post' name='postBody'/></b:includable>
+          <b:includable id='postSummary' var='post'><p class='post-snippet'><b:eval expr='data:post.snippets.short snippet { length: 110 }'/></p></b:includable>
+          <b:includable id='postJumpLink' var='post'><a class='read-more' expr:href='data:post.url'>더 보기</a></b:includable>
+          <b:includable id='postLabels' var='post'>
+            <b:if cond='data:post.labels'>
+              <div class='article-labels'>
+                <b:loop values='data:post.labels' var='label'><a expr:href='data:label.url' rel='tag'><data:label.name/></a></b:loop>
+              </div>
+            </b:if>
+          </b:includable>
+          <b:includable id='postCategory' var='post'>
+            <b:if cond='data:post.labels'><a class='post-card__label' expr:href='data:post.labels.first.url'><data:post.labels.first.name/></a></b:if>
+          </b:includable>
+          <b:includable id='postFeaturedImage' var='post'>
+            <a class='post-card__thumb' expr:href='data:post.url'>
+              <b:if cond='data:post.featuredImage'>
+                <img class='post-thumb' expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 480, &quot;3:2&quot;)'/>
+              </b:if>
+            </a>
+          </b:includable>
+          <b:includable id='postFooter' var='post'><b:comment>handled in itemPost</b:comment></b:includable>
+          <b:includable id='postShareButtons' var='post'><b:comment>custom buttons</b:comment></b:includable>
+          <b:includable id='postRelated' var='post'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='postShortMeta'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='postBreadcrumbs' var='post'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='postMeta' var='post'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='postCommentsLink'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='postNavigation' var='post'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='homePostsHeadline'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='inlineAd' var='post'><b:comment>manual slots</b:comment></b:includable>
+          <b:includable id='messagesJs'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='nextPageLink'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='previousPageLink'><b:comment>unused</b:comment></b:includable>
+          <b:includable id='threadedCommentsDisqus' var='post'><b:comment>disabled</b:comment></b:includable>
+            <b:includable id='aboutPostAuthor'>
+              <b:include name='super.aboutPostAuthor'/>
+            </b:includable>
+            <b:includable id='addComments'>
+              <b:include name='super.addComments'/>
+            </b:includable>
+            <b:includable id='backLinks' var='post'>
+              <b:include data='post' name='super.backLinks'/>
+            </b:includable>
+            <b:includable id='blogThisShare'>
+              <b:include name='super.blogThisShare'/>
+            </b:includable>
+            <b:includable id='bylineByName' var='byline'>
+              <b:include data='byline' name='super.bylineByName'/>
+            </b:includable>
+            <b:includable id='bylineRegion' var='regionItems'>
+              <b:include data='regionItems' name='super.bylineRegion'/>
+            </b:includable>
+            <b:includable id='commentAuthorAvatar'>
+              <b:include name='super.commentAuthorAvatar'/>
+            </b:includable>
+            <b:includable id='commentDeleteIcon' var='comment'>
+              <b:include data='comment' name='super.commentDeleteIcon'/>
+            </b:includable>
+            <b:includable id='commentForm' var='post'>
+              <b:include data='post' name='super.commentForm'/>
+            </b:includable>
+            <b:includable id='commentFormIframeSrc' var='post'>
+              <b:include data='post' name='super.commentFormIframeSrc'/>
+            </b:includable>
+            <b:includable id='commentItem' var='comment'>
+              <b:include name='super.commentItem'/>
+            </b:includable>
+            <b:includable id='commentList' var='comments'>
+              <b:include data='comments' name='super.commentList'/>
+            </b:includable>
+            <b:includable id='commentPicker' var='post'>
+              <b:include data='post' name='super.commentPicker'/>
+            </b:includable>
+            <b:includable id='comments' var='post'>
+              <b:include data='post' name='super.comments'/>
+            </b:includable>
+            <b:includable id='commentsLink'>
+              <b:include name='super.commentsLink'/>
+            </b:includable>
+            <b:includable id='commentsLinkIframe'>
+              <b:include name='super.commentsLinkIframe'/>
+            </b:includable>
+            <b:includable id='commentsTitle'>
+              <b:include name='super.commentsTitle'/>
+            </b:includable>
+            <b:includable id='defaultAdUnit'>
+              <b:include name='super.defaultAdUnit'/>
+            </b:includable>
+            <b:includable id='emailPostIcon'>
+              <b:include name='super.emailPostIcon'/>
+            </b:includable>
+            <b:includable id='facebookShare'>
+              <b:include name='super.facebookShare'/>
+            </b:includable>
+            <b:includable id='feedLinks'>
+              <b:include name='super.feedLinks'/>
+            </b:includable>
+            <b:includable id='feedLinksBody' var='links'>
+              <b:include data='links' name='super.feedLinksBody'/>
+            </b:includable>
+            <b:includable id='googlePlusShare'>
+              <b:include name='super.googlePlusShare'/>
+            </b:includable>
+            <b:includable id='homePageLink'>
+              <b:include name='super.homePageLink'/>
+            </b:includable>
+            <b:includable id='iframeComments' var='post'>
+              <b:include data='post' name='super.iframeComments'/>
+            </b:includable>
+            <b:includable id='linkShare'>
+              <b:include name='super.linkShare'/>
+            </b:includable>
+            <b:includable id='manageComments'>
+              <b:include name='super.manageComments'/>
+            </b:includable>
+            <b:includable id='otherSharingButton'>
+              <b:include name='super.otherSharingButton'/>
+            </b:includable>
+            <b:includable id='platformShare'>
+              <b:include name='super.platformShare'/>
+            </b:includable>
+            <b:includable id='postFooterAuthorProfile' var='post'>
+              <b:include data='post' name='super.postFooterAuthorProfile'/>
+            </b:includable>
+            <b:includable id='postLocation'>
+              <b:include name='super.postLocation'/>
+            </b:includable>
+            <b:includable id='postMetadataJSON'>
+              <b:include name='super.postMetadataJSON'/>
+            </b:includable>
+            <b:includable id='postMetadataJSONImage'>
+              <b:include name='super.postMetadataJSONImage'/>
+            </b:includable>
+            <b:includable id='postMetadataJSONPublisher'>
+              <b:include name='super.postMetadataJSONPublisher'/>
+            </b:includable>
+            <b:includable id='postPagination'>
+              <b:include name='super.postPagination'/>
+            </b:includable>
+            <b:includable id='postReactions' var='post'>
+              <b:include data='post' name='super.postReactions'/>
+            </b:includable>
+            <b:includable id='sharingButton'>
+              <b:include name='super.sharingButton'/>
+            </b:includable>
+            <b:includable id='sharingButtonContent'>
+              <b:include name='super.sharingButtonContent'/>
+            </b:includable>
+            <b:includable id='sharingButtons'>
+              <b:include name='super.sharingButtons'/>
+            </b:includable>
+            <b:includable id='sharingButtonsMenu'>
+              <b:include name='super.sharingButtonsMenu'/>
+            </b:includable>
+            <b:includable id='sharingPlatformIcon'>
+              <b:include name='super.sharingPlatformIcon'/>
+            </b:includable>
+            <b:includable id='threadedCommentForm' var='post'>
+              <b:include data='post' name='super.threadedCommentForm'/>
+            </b:includable>
+            <b:includable id='threadedCommentJs' var='post'>
+              <b:include data='post' name='super.threadedCommentJs'/>
+            </b:includable>
+            <b:includable id='threadedComments' var='post'>
+              <b:include data='post' name='super.threadedComments'/>
+            </b:includable>
+            <b:includable id='tooltipCss'>
+              <b:include name='super.tooltipCss'/>
+            </b:includable>
+        </b:widget>
+      </b:section>
+
+      <b:if cond='data:view.isMultipleItems'>
+        <template id='list-ad-template'>
+          <div class='ad-slot ad-slot--list-middle' data-auto-ad='list' aria-label='목록 중간 광고'><span class='ad-label'>AD</span></div>
+        </template>
+        <div class='ad-slot ad-slot--list-bottom' aria-label='목록 하단 광고'><span class='ad-label'>AD</span></div>
+      </b:if>
+    </main>
+
+    <aside class='site-sidebar'>
+      <div class='sidebar-sticky'>
+        <div class='ad-slot ad-slot--sidebar' aria-label='사이드바 광고'><span class='ad-label'>AD</span></div>
+        <b:section class='sidebar' id='sidebar' name='사이드바' showaddelement='yes'>
+          <b:widget id='Label1' locked='false' title='라벨' type='Label' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='sorting'>ALPHA</b:widget-setting>
+              <b:widget-setting name='display'>LIST</b:widget-setting>
+              <b:widget-setting name='selectedLabelsList'/>
+              <b:widget-setting name='showType'>ALL</b:widget-setting>
+              <b:widget-setting name='showFreqNumbers'>true</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <section class='sidebar-widget'>
+                <b:include name='widget-title'/>
+                <div class='widget-content'>
+                  <ul>
+                    <b:loop values='data:labels' var='label'>
+                      <li><a expr:href='data:label.url'><data:label.name/> (<data:label.count/>)</a></li>
+                    </b:loop>
+                  </ul>
+                </div>
+              </section>
+            </b:includable>
+          </b:widget>
+          <b:widget id='PopularPosts1' locked='false' title='인기 글' type='PopularPosts' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
+              <b:widget-setting name='showThumbnails'>false</b:widget-setting>
+              <b:widget-setting name='showSnippets'>false</b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main' var='this'>
+              <section class='sidebar-widget'>
+                <b:include name='widget-title'/>
+                <div class='widget-content'>
+                  <ol>
+                    <b:loop values='data:posts' var='post'>
+                      <li><a expr:href='data:post.url'><data:post.title/></a></li>
+                    </b:loop>
+                  </ol>
+                </div>
+              </section>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </div>
+    </aside>
+  </div>
+
+  <button class='floating-toc-button' data-mobile-toc-toggle='true' type='button'>목차</button>
+  <div class='mobile-toc' data-mobile-toc='true' hidden='hidden'>
+    <div class='mobile-toc__panel'>
+      <div class='mobile-toc__head'>
+        <strong>목차</strong>
+        <button data-mobile-toc-close='true' type='button'>닫기</button>
+      </div>
+      <ol data-mobile-toc-list='true'/>
+    </div>
+  </div>
+  <div class='mobile-sticky-ad' data-mobile-sticky-ad='true' hidden='hidden'>
+    <button data-mobile-ad-close='true' type='button'>닫기</button>
+    <div class='ad-slot ad-slot--mobile-sticky' aria-label='모바일 하단 광고'><span class='ad-label'>AD</span></div>
+  </div>
+
+  <footer class='site-footer'>
+    <p><a expr:href='data:blog.homepageUrl'><data:blog.title/></a></p>
+    <b:section id='footer' name='푸터' showaddelement='yes'/>
+  </footer>
+
+  <div id='ad-sources'>
+    <b:section id='ad-article-top' maxwidgets='1' name='본문 상단 광고' showaddelement='yes'>
+          <b:widget id='HTMLAdTop' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+    <b:section id='ad-article-middle' maxwidgets='1' name='본문 중간 광고' showaddelement='yes'>
+          <b:widget id='HTMLAdMiddle' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>
+          <b:widget id='HTMLAdBottom' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>
+          <b:widget id='HTMLAdSidebar' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+    <b:section id='ad-list-top' maxwidgets='1' name='목록 상단 광고' showaddelement='yes'>
+          <b:widget id='HTMLAdListTop' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+    <b:section id='ad-list-middle' maxwidgets='1' name='목록 중간 광고' showaddelement='yes'>
+          <b:widget id='HTMLAdListMiddle' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+    <b:section id='ad-list-bottom' maxwidgets='1' name='목록 하단 광고' showaddelement='yes'>
+          <b:widget id='HTMLAdListBottom' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+    <b:section id='ad-mobile-sticky' maxwidgets='1' name='모바일 하단 고정 광고' showaddelement='yes'>
+          <b:widget id='HTMLAdMobile' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+  </div>
+
+  <script>
+  window.quietlineConfig = {
+    articleMiddleAdAfterHeading: 2,
+    listAdAfterItem: 4,
+    showAdPlaceholders: false,
+    enableMobileStickyAd: false
+  };
+  </script>
+  <script type='text/javascript'>
+  //<![CDATA[
+(function () {
+  "use strict";
+
+  var config = window.quietlineConfig || {};
+  var afterHeading = Number(config.articleMiddleAdAfterHeading || 2);
+  var listAfter = Number(config.listAdAfterItem || 4);
+  var showPlaceholders = Boolean(config.showAdPlaceholders);
+  var enableSticky = Boolean(config.enableMobileStickyAd);
+
+  function ready(fn) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", fn, { once: true });
+    } else {
+      fn();
+    }
+  }
+
+  function slugify(text, index) {
+    var slug = String(text || "")
+      .trim()
+      .toLowerCase()
+      .replace(/[^\w\u3131-\u318e\uac00-\ud7a3\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .replace(/-+/g, "-");
+    return slug || "section-" + index;
+  }
+
+  function uniqueId(base) {
+    var id = base;
+    var n = 2;
+    while (document.getElementById(id)) {
+      id = base + "-" + n;
+      n += 1;
+    }
+    return id;
+  }
+
+  function initMenu() {
+    var button = document.querySelector("[data-menu-toggle]");
+    var nav = document.querySelector("[data-site-nav]");
+    if (!button || !nav) return;
+
+    button.addEventListener("click", function () {
+      var open = nav.classList.toggle("is-open");
+      button.setAttribute("aria-expanded", String(open));
+    });
+
+    document.addEventListener("click", function (event) {
+      if (!nav.classList.contains("is-open")) return;
+      if (nav.contains(event.target) || button.contains(event.target)) return;
+      nav.classList.remove("is-open");
+      button.setAttribute("aria-expanded", "false");
+    });
+  }
+
+  function initProgress() {
+    var bar = document.querySelector(".reading-progress span");
+    var article = document.querySelector("[data-article-body], .post-body");
+    if (!bar || !article) return;
+
+    function update() {
+      var rect = article.getBoundingClientRect();
+      var total = Math.max(article.offsetHeight - window.innerHeight, 1);
+      var read = Math.min(Math.max(-rect.top, 0), total);
+      bar.style.width = (read / total) * 100 + "%";
+    }
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+  }
+
+  function initToc() {
+    var article = document.querySelector("[data-article-body], .item-post .post-body");
+    var toc = document.querySelector("[data-toc]");
+    var tocList = document.querySelector("[data-toc-list]");
+    var mobileToc = document.querySelector("[data-mobile-toc]");
+    var mobileList = document.querySelector("[data-mobile-toc-list]");
+    if (!article || !tocList || !mobileList) return;
+
+    var headings = Array.prototype.slice.call(article.querySelectorAll("h2, h3"));
+    if (headings.length < 2) {
+      if (toc) toc.classList.add("is-empty");
+      var floating = document.querySelector("[data-mobile-toc-toggle]");
+      if (floating) floating.hidden = true;
+      return;
+    }
+
+    var seen = {};
+    headings.forEach(function (heading, index) {
+      if (!heading.id) heading.id = uniqueId(slugify(heading.textContent, index + 1));
+      else if (seen[heading.id]) heading.id = uniqueId(heading.id);
+      seen[heading.id] = true;
+
+      var li = document.createElement("li");
+      li.className = "toc-level-" + heading.tagName.slice(1);
+      var link = document.createElement("a");
+      link.href = "#" + heading.id;
+      link.textContent = heading.textContent.trim();
+      li.appendChild(link);
+      tocList.appendChild(li);
+      mobileList.appendChild(li.cloneNode(true));
+    });
+
+    var links = Array.prototype.slice.call(document.querySelectorAll("[data-toc-list] a, [data-mobile-toc-list] a"));
+    if ("IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          links.forEach(function (link) {
+            link.classList.toggle("is-active", link.getAttribute("href") === "#" + entry.target.id);
+          });
+        });
+      }, { rootMargin: "-18% 0px -72% 0px", threshold: 0.01 });
+      headings.forEach(function (heading) { observer.observe(heading); });
+    }
+
+    initMobileToc(mobileToc);
+  }
+
+  function initMobileToc(mobileToc) {
+    var openButton = document.querySelector("[data-mobile-toc-toggle]");
+    var closeButton = document.querySelector("[data-mobile-toc-close]");
+    if (!mobileToc || !openButton || !closeButton) return;
+
+    function open() {
+      mobileToc.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+
+    function close() {
+      mobileToc.hidden = true;
+      document.body.style.overflow = "";
+    }
+
+    openButton.addEventListener("click", open);
+    closeButton.addEventListener("click", close);
+    mobileToc.addEventListener("click", function (event) {
+      if (event.target === mobileToc || event.target.tagName === "A") close();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !mobileToc.hidden) close();
+    });
+  }
+
+  function cloneTemplateChild(template) {
+    if (!template) return null;
+    if (template.content && template.content.firstElementChild) {
+      return template.content.firstElementChild.cloneNode(true);
+    }
+    var child = template.querySelector(".ad-slot");
+    return child ? child.cloneNode(true) : null;
+  }
+
+  function slotHasAdContent(slot) {
+    var clone = slot.cloneNode(true);
+    Array.prototype.forEach.call(clone.querySelectorAll("span.ad-label, .ad-label"), function (label) {
+      label.remove();
+    });
+    var text = clone.textContent.replace(/\s+/g, "").trim();
+    var hasAdElement = Boolean(clone.querySelector("ins.adsbygoogle, iframe, script, [data-ad-client], [data-ad-slot]"));
+    return Boolean(text) || hasAdElement;
+  }
+
+  function hideEmptyAdSlots() {
+    if (showPlaceholders) return;
+    Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), function (slot) {
+      if (!slotHasAdContent(slot)) {
+        slot.hidden = true;
+        slot.setAttribute("aria-hidden", "true");
+      }
+    });
+  }
+
+  function insertArticleMiddleAd() {
+    var article = document.querySelector("[data-article-body], .item-post .post-body");
+    var template = document.getElementById("article-middle-ad-template");
+    if (!article || !template || article.querySelector('[data-auto-ad="middle"]')) return;
+
+    var headings = Array.prototype.slice.call(article.querySelectorAll("h2"));
+    var anchor = headings[Math.max(afterHeading - 1, 0)];
+    if (!anchor) {
+      var paragraphs = Array.prototype.slice.call(article.querySelectorAll("p"));
+      anchor = paragraphs[Math.floor(paragraphs.length / 2)];
+    }
+    var node = cloneTemplateChild(template);
+    if (!anchor || !node) return;
+    anchor.insertAdjacentElement("afterend", node);
+  }
+
+  function insertListAd() {
+    var list = document.querySelector("[data-post-list], .post-list");
+    var template = document.getElementById("list-ad-template");
+    if (!list || !template || list.querySelector('[data-auto-ad="list"]')) return;
+    var cards = Array.prototype.slice.call(list.querySelectorAll(".post-card, .index-post"));
+    var anchor = cards[Math.max(listAfter, 1) - 1];
+    var node = cloneTemplateChild(template);
+    if (!anchor || !node) return;
+    anchor.insertAdjacentElement("afterend", node);
+  }
+
+  function moveBloggerAds() {
+    var map = [
+      ["ad-article-top", ".ad-slot--article-top"],
+      ["ad-article-bottom", ".ad-slot--article-bottom"],
+      ["ad-sidebar", ".ad-slot--sidebar"],
+      ["ad-list-top", ".ad-slot--list-top"],
+      ["ad-list-bottom", ".ad-slot--list-bottom"],
+      ["ad-mobile-sticky", ".ad-slot--mobile-sticky"]
+    ];
+
+    map.forEach(function (pair) {
+      var source = document.getElementById(pair[0]);
+      var target = document.querySelector(pair[1]);
+      if (!source || !target) return;
+      var content = source.querySelector(".widget-content");
+      if (!content) return;
+      var html = content.innerHTML.trim();
+      if (!html) return;
+      target.insertAdjacentHTML("beforeend", html);
+    });
+
+    var middleSource = document.getElementById("ad-article-middle");
+    var middleTemplate = document.getElementById("article-middle-ad-template");
+    fillTemplateSlot(middleSource, middleTemplate);
+
+    var listSource = document.getElementById("ad-list-middle");
+    var listTemplate = document.getElementById("list-ad-template");
+    fillTemplateSlot(listSource, listTemplate);
+  }
+
+  function fillTemplateSlot(source, template) {
+    if (!source || !template) return;
+    var content = source.querySelector(".widget-content");
+    if (!content || !content.innerHTML.trim()) return;
+    var slot = (template.content && template.content.querySelector(".ad-slot")) || template.querySelector(".ad-slot");
+    if (slot) slot.insertAdjacentHTML("beforeend", content.innerHTML);
+  }
+
+  function initMobileStickyAd() {
+    var wrapper = document.querySelector("[data-mobile-sticky-ad]");
+    var closeButton = document.querySelector("[data-mobile-ad-close]");
+    if (!wrapper || !enableSticky) return;
+    wrapper.hidden = false;
+    if (sessionStorage.getItem("quietline-sticky-closed") === "1") {
+      wrapper.hidden = true;
+      return;
+    }
+    if (closeButton) {
+      closeButton.addEventListener("click", function () {
+        wrapper.hidden = true;
+        sessionStorage.setItem("quietline-sticky-closed", "1");
+      });
+    }
+  }
+
+  function initArticleEnhancements() {
+    var article = document.querySelector("[data-article-body], .post-body");
+    if (!article) return;
+
+    Array.prototype.forEach.call(article.querySelectorAll("img"), function (img, index) {
+      if (index > 0 && !img.hasAttribute("loading")) img.loading = "lazy";
+      if (!img.hasAttribute("decoding")) img.decoding = "async";
+    });
+
+    Array.prototype.forEach.call(article.querySelectorAll('a[href^="http"]'), function (link) {
+      if (link.hostname && link.hostname !== window.location.hostname) {
+        link.rel = "noopener noreferrer";
+        link.target = "_blank";
+      }
+    });
+  }
+
+  function initShare() {
+    var copyButton = document.querySelector("[data-copy-link]");
+    var shareButton = document.querySelector("[data-native-share]");
+
+    if (copyButton) {
+      copyButton.addEventListener("click", function () {
+        var url = window.location.href;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () {
+            copyButton.textContent = "복사 완료";
+            setTimeout(function () { copyButton.textContent = "링크 복사"; }, 1600);
+          });
+        }
+      });
+    }
+
+    if (shareButton) {
+      shareButton.addEventListener("click", function () {
+        if (navigator.share) {
+          navigator.share({ title: document.title, url: window.location.href }).catch(function () {});
+        } else if (copyButton) {
+          copyButton.click();
+        }
+      });
+    }
+  }
+
+  ready(function () {
+    initMenu();
+    initProgress();
+    initToc();
+    moveBloggerAds();
+    insertArticleMiddleAd();
+    insertListAd();
+    hideEmptyAdSlots();
+    initMobileStickyAd();
+    initArticleEnhancements();
+    initShare();
+  });
+})();
+
+  //]]>
+  </script>
+</body>
+</html>

@@ -3,146 +3,139 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>티스토리 스킨 디자인 프리뷰</title>
+  <title>Quietline 프리뷰</title>
   <link rel="stylesheet" href="./style.css">
   <script>
-    window.tistorySkinConfig = {
+    window.quietlineConfig = {
       articleMiddleAdAfterHeading: 2,
-      listAdAfterItem: 3,
+      listAdAfterItem: 4,
       showAdPlaceholders: true,
       enableMobileStickyAd: false
     };
   </script>
 </head>
-<body class="tistory-revenue-skin" style="--default-thumb: url('https://picsum.photos/seed/kkamzzi-default/720/420');">
+<body>
   <a class="skip-link" href="#content">본문 바로가기</a>
   <div class="reading-progress" aria-hidden="true"><span></span></div>
 
-  <header class="site-header" data-header>
+  <header class="site-header">
     <div class="site-header__inner">
       <div class="brand">
-        <a class="brand__title" href="./preview.html">화이트 수익형 블로그</a>
-        <p class="brand__desc">가독성과 광고 균형을 우선한 티스토리 스킨 프리뷰</p>
+        <a class="brand__title" href="./preview.html">Quietline</a>
       </div>
-
       <button class="icon-button mobile-menu-button" type="button" data-menu-toggle aria-label="메뉴 열기" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-
-      <nav class="site-nav" data-site-nav aria-label="카테고리 메뉴">
-        <ul class="tt_category">
-          <li>
-            <a class="link_tit" href="#content">분류 전체보기 <span class="c_cnt">(7)</span></a>
-            <ul class="category_list">
-              <li><a href="#content">신생아 육아정보 <span class="c_cnt">(4)</span></a></li>
-              <li><a href="#content">출산준비·집안세팅 <span class="c_cnt">(1)</span></a></li>
-              <li><a href="#content">육아정책·지원정보 <span class="c_cnt">(1)</span></a></li>
-              <li><a href="#content">육아용품 비교노트 <span class="c_cnt">(1)</span></a></li>
-              <li><a href="#content">깜찌의 육아메모 <span class="c_cnt">(0)</span></a></li>
-            </ul>
-          </li>
+      <nav class="site-nav" data-site-nav aria-label="주요 메뉴">
+        <ul>
+          <li class="selected"><a href="#list">전체</a></li>
+          <li><a href="#article-preview">생활정보</a></li>
+          <li><a href="#article-preview">정책</a></li>
+          <li><a href="#article-preview">IT</a></li>
+          <li><a href="#article-preview">리뷰</a></li>
         </ul>
       </nav>
-
       <div class="header-actions">
-        <form class="search-form" data-search-form role="search">
+        <form class="search-form" role="search" action="#" method="get">
           <label class="sr-only" for="header-search">검색어</label>
-          <input id="header-search" name="search" type="search" placeholder="검색어를 입력하세요" autocomplete="off">
+          <input id="header-search" name="q" type="search" placeholder="검색" autocomplete="off">
           <button type="submit">검색</button>
         </form>
-        <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label="다크모드 전환">A</button>
       </div>
     </div>
   </header>
 
   <div class="site-shell">
     <main id="content" class="site-main">
-      <section class="cover">
-        <div class="cover__head">
-          <p class="eyebrow">Preview</p>
-          <h1>화이트톤과 긴 글 가독성을 우선한 블로그 스킨</h1>
-          <p>실제 적용 전에 목록, 본문, 광고 슬롯, 사이드바의 분위기를 한 화면에서 확인하기 위한 미리보기입니다.</p>
-        </div>
+      <section class="archive-head" id="list">
+        <h1>최근 글</h1>
+        <p>콘텐츠가 먼저 보이고, 광고는 읽기 흐름에만 들어가는 목록 구조입니다.</p>
       </section>
 
-      <div id="ad-preview" class="ad-slot ad-slot--list-top" aria-label="목록 상단 광고">
-        <span>목록 상단 광고 영역</span>
+      <div class="ad-slot ad-slot--list-top" aria-label="목록 상단 광고">
+        <span class="ad-label">AD</span>
       </div>
 
-      <section class="post-list" data-post-list aria-label="글 목록 프리뷰">
+      <section class="post-list" data-post-list aria-label="글 목록">
         <article class="post-card">
-          <a class="post-card__thumb" href="#article-preview" aria-label="애드센스 블로그에서 본문 상단 광고를 자연스럽게 배치하는 법">
-            <img class="post-card__image" src="https://picsum.photos/seed/tistory-preview-1/720/420" alt="">
+          <a class="post-card__thumb" href="#article-preview">
+            <img src="https://picsum.photos/seed/quietline-1/480/320" alt="">
           </a>
           <div class="post-card__body">
-            <a class="post-card__category" href="#content">운영팁</a>
-            <h2><a href="#article-preview">애드센스 블로그에서 본문 상단 광고를 자연스럽게 배치하는 법</a></h2>
-            <p>광고가 콘텐츠를 방해하지 않도록 제목, 도입부, 목차, 광고 영역의 간격을 조절하는 방법을 정리했습니다.</p>
-            <div class="post-card__meta">
-              <time datetime="2026-05-27">2026.05.27</time>
-              <span>관리자</span>
-            </div>
+            <a class="post-card__label" href="#article-preview">생활정보</a>
+            <h2><a href="#article-preview">전세 계약 전 꼭 확인할 등기부 항목</a></h2>
+            <p>권리관계, 근저당, 가압류처럼 놓치면 위험한 항목을 계약 순서대로 정리했습니다.</p>
+            <div class="post-card__meta"><time>2026.08.12</time><span>운영자</span></div>
           </div>
         </article>
 
         <article class="post-card">
-          <a class="post-card__thumb" href="#article-preview" aria-label="검색 유입형 글을 쓸 때 제목 구조를 잡는 기준">
-            <img class="post-card__image" src="https://picsum.photos/seed/tistory-preview-2/720/420" alt="">
+          <a class="post-card__thumb" href="#article-preview">
+            <img src="https://picsum.photos/seed/quietline-2/480/320" alt="">
           </a>
           <div class="post-card__body">
-            <a class="post-card__category" href="#content">SEO</a>
-            <h2><a href="#article-preview">검색 유입형 글을 쓸 때 제목 구조를 잡는 기준</a></h2>
-            <p>H2와 H3를 검색 의도에 맞게 구성하면 목차와 본문 흐름이 함께 좋아집니다.</p>
-            <div class="post-card__meta">
-              <time datetime="2026-05-26">2026.05.26</time>
-              <span>관리자</span>
-            </div>
+            <a class="post-card__label" href="#article-preview">정책</a>
+            <h2><a href="#article-preview">2026 근로장려금 신청 일정과 대상</a></h2>
+            <p>정기 신청과 기한 후 신청의 차이, 가구 유형별 소득 기준을 표로 비교합니다.</p>
+            <div class="post-card__meta"><time>2026.08.08</time><span>운영자</span></div>
           </div>
         </article>
 
         <article class="post-card">
-          <a class="post-card__thumb" href="#article-preview" aria-label="모바일에서 오래 읽히는 문단 간격과 폰트 크기">
-            <img class="post-card__image" src="https://picsum.photos/seed/tistory-preview-3/720/420" alt="">
+          <a class="post-card__thumb" href="#article-preview">
+            <img src="https://picsum.photos/seed/quietline-3/480/320" alt="">
           </a>
           <div class="post-card__body">
-            <a class="post-card__category" href="#content">모바일</a>
-            <h2><a href="#article-preview">모바일에서 오래 읽히는 문단 간격과 폰트 크기</a></h2>
-            <p>모바일에서는 여백과 줄간격이 체류시간에 직접적인 영향을 줍니다.</p>
-            <div class="post-card__meta">
-              <time datetime="2026-05-25">2026.05.25</time>
-              <span>관리자</span>
-            </div>
+            <a class="post-card__label" href="#article-preview">IT</a>
+            <h2><a href="#article-preview">공유기 채널 변경으로 와이파이 끊김 줄이기</a></h2>
+            <p>2.4GHz와 5GHz를 나눠 쓰는 기준, 간섭이 적은 채널을 고르는 방법을 담았습니다.</p>
+            <div class="post-card__meta"><time>2026.08.03</time><span>운영자</span></div>
           </div>
         </article>
 
         <article class="post-card">
-          <a class="post-card__thumb" href="#article-preview" aria-label="화려하지 않아도 신뢰감 있는 화이트 블로그 레이아웃">
-            <img class="post-card__image" src="https://picsum.photos/seed/tistory-preview-4/720/420" alt="">
+          <a class="post-card__thumb" href="#article-preview">
+            <img src="https://picsum.photos/seed/quietline-4/480/320" alt="">
           </a>
           <div class="post-card__body">
-            <a class="post-card__category" href="#content">디자인</a>
-            <h2><a href="#article-preview">화려하지 않아도 신뢰감 있는 화이트 블로그 레이아웃</a></h2>
-            <p>과한 장식보다 텍스트 대비, 구분선, 정보 구조가 더 중요합니다.</p>
-            <div class="post-card__meta">
-              <time datetime="2026-05-24">2026.05.24</time>
-              <span>관리자</span>
-            </div>
+            <a class="post-card__label" href="#article-preview">리뷰</a>
+            <h2><a href="#article-preview">가성비 공기청정기 3종 소음과 필터 비교</a></h2>
+            <p>실제 사용 소음, 필터 교체 주기, 전기요금 체감 위주로 비교했습니다.</p>
+            <div class="post-card__meta"><time>2026.07.29</time><span>운영자</span></div>
+          </div>
+        </article>
+
+        <article class="post-card">
+          <a class="post-card__thumb" href="#article-preview">
+            <img src="https://picsum.photos/seed/quietline-5/480/320" alt="">
+          </a>
+          <div class="post-card__body">
+            <a class="post-card__label" href="#article-preview">생활정보</a>
+            <h2><a href="#article-preview">도시가스 요금 고지서에서 확인할 항목</a></h2>
+            <p>기본요금, 사용량, 가산금이 어디에 찍히는지 고지서 예시로 설명합니다.</p>
+            <div class="post-card__meta"><time>2026.07.21</time><span>운영자</span></div>
           </div>
         </article>
       </section>
 
-      <article id="article-preview" class="article" itemscope itemtype="https://schema.org/BlogPosting">
+      <nav class="pager" aria-label="페이지 이동">
+        <a href="#list">이전</a>
+        <a href="#list">1</a>
+        <a href="#list">다음</a>
+      </nav>
+
+      <article id="article-preview" class="article">
         <header class="article-header">
-          <a class="article-category" href="#content">본문 프리뷰</a>
-          <h1 itemprop="headline">오래 읽어도 피곤하지 않은 티스토리 본문 디자인</h1>
+          <a class="article-label" href="#list">생활정보</a>
+          <h1>전세 계약 전 꼭 확인할 등기부 항목</h1>
           <div class="article-meta">
-            <time itemprop="datePublished" datetime="2026-05-27">2026.05.27</time>
-            <span itemprop="author">관리자</span>
+            <time datetime="2026-08-12">2026.08.12</time>
+            <span>운영자</span>
           </div>
         </header>
 
         <div class="ad-slot ad-slot--article-top" aria-label="본문 상단 광고">
-          <span>본문 상단 광고 영역</span>
+          <span class="ad-label">AD</span>
         </div>
 
         <nav class="article-toc" data-toc aria-label="글 목차">
@@ -150,57 +143,54 @@
           <ol data-toc-list></ol>
         </nav>
 
-        <div class="article-body" data-article-body itemprop="articleBody">
-          <p>이 프리뷰는 실제 티스토리 글 상세 페이지에서 보일 본문 폭, 글자 크기, 줄간격, 제목 계층, 광고 영역의 느낌을 빠르게 확인하기 위해 만든 샘플입니다.</p>
-          <p>현재 방향은 화이트톤을 유지하면서도 수익형 블로그에 필요한 광고 슬롯을 자연스럽게 녹이는 것입니다. 광고가 콘텐츠를 압도하지 않고, 읽기 흐름 중간에 적절히 쉬어가는 역할을 하도록 구성했습니다.</p>
+        <div class="article-body" data-article-body>
+          <p>이 글은 전세 계약을 앞둔 사람이 등기사항전부증명서를 어떤 순서로 보면 되는지 정리한 실무 메모입니다. 광고 위치와 본문 폭, 제목 계층이 실제 글에서 어떻게 보이는지 확인하기 위한 샘플이기도 합니다.</p>
+          <p>등기부는 표제부, 갑구, 을구 세 덩어리로 나뉩니다. 한 번에 다 읽으려 하지 말고, 계약 직전 확인할 항목만 순서대로 보는 편이 실수가 적습니다.</p>
 
-          <h2>본문 첫 화면에서 중요한 요소</h2>
-          <p>첫 화면에는 제목, 작성 정보, 상단 광고, 목차가 순서대로 배치됩니다. 상단 광고가 너무 가까우면 답답해 보이고, 너무 멀면 수익성이 낮아질 수 있으므로 여백을 적당히 두었습니다.</p>
-          <blockquote>좋은 수익형 블로그 디자인은 광고를 숨기는 것이 아니라, 콘텐츠와 광고의 경계를 명확하게 보여주는 쪽에 가깝습니다.</blockquote>
+          <h2>표제부에서 먼저 볼 것</h2>
+          <p>표제부는 건물과 토지가 맞는지 확인하는 신분증입니다. 주소, 건물 명칭, 전용면적, 대지권이 매물 설명과 같은지 대조합니다. 면적이 다르거나 동·호수가 다르면 그 다음 항목을 볼 필요가 없습니다.</p>
+          <blockquote>계약서에 적힌 주소와 등기부 주소가 한 글자라도 다르면, 특약보다 등기부를 기준으로 다시 확인하세요.</blockquote>
 
-          <h2>H2 이후 자동 중간 광고</h2>
-          <p>스크립트는 설정된 번째의 H2 뒤에 중간 광고 placeholder를 자동 삽입합니다. 실제 AdSense 코드는 적용 단계에서 해당 영역에 넣거나 티스토리 수익 치환자를 사용할 수 있습니다.</p>
-          <p>문단은 모바일 기준으로도 읽기 편하도록 줄간격을 넉넉하게 잡았습니다. 긴 글에서는 이 차이가 체류시간에 꽤 큰 영향을 줍니다.</p>
+          <h2>갑구에서 확인할 권리관계</h2>
+          <p>갑구에는 소유권과 가압류, 가처분, 경매개시결정 같은 소유권 제한이 나옵니다. 현재 소유자가 계약 상대와 같은지, 최근 소유권 이전이 잦은지 먼저 봅니다.</p>
+          <p>가압류나 경매 관련 기입이면 보증금 보호가 어렵습니다. 이 경우 계약 진행보다 법무사 상담이 먼저입니다.</p>
 
-          <h3>소제목과 본문 간격</h3>
-          <p>H3는 H2보다 덜 강하게 보이도록 구성했습니다. 정보성 글에서 자주 쓰는 질문형 소제목, 체크리스트, 비교 설명에 적합합니다.</p>
+          <h3>을구 근저당은 얼마까지 허용할지</h3>
+          <p>을구의 근저당 설정액과 전세보증금을 더한 값이 시세의 어느 정도인지 계산합니다. 숫자가 커 보여도 선순위가 얼마나 남았는지가 핵심입니다.</p>
+          <pre><code>선순위 합계 = 근저당 설정액 + 선순위 임차보증금
+여유 = 예상 매각가 - 선순위 합계 - 내 보증금</code></pre>
 
-          <h2>코드블럭과 표 스타일</h2>
-          <p>IT 글이나 운영 가이드에서 자주 쓰는 <code>inline code</code>와 코드블럭도 기본 스타일을 넣었습니다.</p>
-          <pre><code>window.tistorySkinConfig = {
-  articleMiddleAdAfterHeading: 2,
-  listAdAfterItem: 3
-};</code></pre>
-
+          <h2>계약 당일 체크리스트</h2>
+          <p>등기부는 계약 당일 오전에도 한 번 더 발급합니다. 전날 확인본과 달라졌는지, 중개대상물 확인설명서의 권리관계와 일치하는지만 보면 됩니다.</p>
           <table>
             <thead>
-              <tr><th>영역</th><th>목적</th><th>톤</th></tr>
+              <tr><th>항목</th><th>확인 기준</th></tr>
             </thead>
             <tbody>
-              <tr><td>본문</td><td>가독성</td><td>화이트/블랙</td></tr>
-              <tr><td>광고</td><td>수익화</td><td>연한 점선 박스</td></tr>
-              <tr><td>사이드바</td><td>탐색</td><td>얇은 라인</td></tr>
+              <tr><td>표제부</td><td>주소·면적·호수 일치</td></tr>
+              <tr><td>갑구</td><td>소유자 일치, 가압류 없음</td></tr>
+              <tr><td>을구</td><td>선순위 합계가 감당 가능한 수준</td></tr>
             </tbody>
           </table>
 
-          <h2>마무리</h2>
-          <p>최종 적용 전에 이 페이지에서 헤더, 목록 카드, 본문, 목차, 광고 영역, 사이드바를 확인하고 마음에 들 때만 티스토리에 적용하면 됩니다.</p>
+          <h2>정리</h2>
+          <p>등기부는 많이 읽는 문서가 아니라, 같은 항목을 반복해서 대조하는 문서입니다. 표제부에서 물건이 맞는지 확인하고, 갑구에서 소유 제한을 걸러낸 뒤, 을구에서 숫자만 맞추면 됩니다.</p>
         </div>
 
         <template id="article-middle-ad-template">
           <div class="ad-slot ad-slot--article-middle" data-auto-ad="middle" aria-label="본문 중간 광고">
-            <span>본문 중간 광고 영역</span>
+            <span class="ad-label">AD</span>
           </div>
         </template>
 
         <div class="ad-slot ad-slot--article-bottom" aria-label="본문 하단 광고">
-          <span>본문 하단 광고 영역</span>
+          <span class="ad-label">AD</span>
         </div>
 
-        <section class="article-tags" aria-label="태그">
-          <a href="#content">#티스토리</a>
-          <a href="#content">#애드센스</a>
-          <a href="#content">#블로그스킨</a>
+        <section class="article-labels" aria-label="라벨">
+          <a href="#list">생활정보</a>
+          <a href="#list">부동산</a>
+          <a href="#list">계약</a>
         </section>
 
         <section class="article-actions" aria-label="공유">
@@ -208,53 +198,45 @@
           <button type="button" data-native-share>공유하기</button>
         </section>
 
+        <nav class="post-nav" aria-label="이전다음 글">
+          <a href="#list"><span>이전 글</span><p>도시가스 요금 고지서에서 확인할 항목</p></a>
+          <a href="#list"><span>다음 글</span><p>2026 근로장려금 신청 일정과 대상</p></a>
+        </nav>
 
         <section class="comments-panel">
           <h2>댓글</h2>
-          <p>티스토리 댓글 치환자가 들어가는 위치입니다.</p>
+          <p>블로거 댓글 위젯이 이 위치에 표시됩니다.</p>
         </section>
       </article>
 
       <template id="list-ad-template">
         <div class="ad-slot ad-slot--list-middle" data-auto-ad="list" aria-label="목록 중간 광고">
-          <span>목록 중간 광고 영역</span>
+          <span class="ad-label">AD</span>
         </div>
       </template>
     </main>
 
-    <aside id="sidebar-preview" class="site-sidebar" aria-label="사이드바">
+    <aside class="site-sidebar" aria-label="사이드바">
       <div class="sidebar-sticky">
         <div class="ad-slot ad-slot--sidebar" aria-label="사이드바 광고">
-          <span>사이드바 광고 영역</span>
+          <span class="ad-label">AD</span>
         </div>
-
         <section class="sidebar-widget">
-          <h2>카테고리</h2>
+          <h3>라벨</h3>
           <ul>
-            <li><a href="#content">운영팁</a></li>
-            <li><a href="#content">SEO</a></li>
-            <li><a href="#content">애드센스</a></li>
-            <li><a href="#content">스킨 설정</a></li>
+            <li><a href="#list">생활정보 (12)</a></li>
+            <li><a href="#list">정책 (8)</a></li>
+            <li><a href="#list">IT (6)</a></li>
+            <li><a href="#list">리뷰 (4)</a></li>
           </ul>
         </section>
-
         <section class="sidebar-widget">
-          <h2>최근 글</h2>
-          <ol class="compact-list">
-            <li><a href="#article-preview">본문 상단 광고를 자연스럽게 배치하는 법</a></li>
-            <li><a href="#article-preview">검색 유입형 글 제목 구조</a></li>
-            <li><a href="#article-preview">모바일 문단 간격과 폰트 크기</a></li>
+          <h3>인기 글</h3>
+          <ol>
+            <li><a href="#article-preview">전세 계약 전 꼭 확인할 등기부 항목</a></li>
+            <li><a href="#article-preview">2026 근로장려금 신청 일정과 대상</a></li>
+            <li><a href="#article-preview">공유기 채널 변경으로 와이파이 끊김 줄이기</a></li>
           </ol>
-        </section>
-
-        <section class="sidebar-widget">
-          <h2>태그</h2>
-          <div class="tag-cloud">
-            <a href="#content">티스토리</a>
-            <a href="#content">수익형블로그</a>
-            <a href="#content">가독성</a>
-            <a href="#content">광고</a>
-          </div>
         </section>
       </div>
     </aside>
@@ -272,17 +254,9 @@
   </div>
 
   <footer class="site-footer">
-    <div class="site-footer__inner">
-      <p><a href="./preview.html">화이트 수익형 블로그</a></p>
-      <p>디자인 컨펌용 정적 프리뷰</p>
-      <nav aria-label="푸터 링크">
-        <a href="#content">전체</a>
-        <a href="#content">운영팁</a>
-        <a href="#content">애드센스</a>
-      </nav>
-    </div>
+    <p><a href="./preview.html">Quietline</a></p>
+    <p>콘텐츠가 주인공인 수익형 블로그 테마 프리뷰</p>
   </footer>
-
-  <script src="./images/script.js" defer></script>
+  <script src="./script.js" defer></script>
 </body>
 </html>
