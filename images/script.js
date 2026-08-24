@@ -278,11 +278,18 @@
     if (copyButton) {
       copyButton.addEventListener("click", function () {
         var url = window.location.href;
+        function done() {
+          copyButton.textContent = "복사 완료";
+          setTimeout(function () { copyButton.textContent = "링크 복사"; }, 1600);
+        }
         if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(url).then(function () {
-            copyButton.textContent = "복사 완료";
-            setTimeout(function () { copyButton.textContent = "링크 복사"; }, 1600);
+          navigator.clipboard.writeText(url).then(done).catch(function () {
+            fallbackCopy(url);
+            done();
           });
+        } else {
+          fallbackCopy(url);
+          done();
         }
       });
     }
@@ -296,6 +303,18 @@
         }
       });
     }
+  }
+
+  function fallbackCopy(text) {
+    var textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.setAttribute("readonly", "");
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    textarea.remove();
   }
 
   ready(function () {
