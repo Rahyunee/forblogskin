@@ -68,6 +68,8 @@ def test_restore_rules(xml: str) -> None:
         fail("HTML101 must appear exactly once")
     if "id='HTML1'" in xml:
         fail("HTML1 collides with the live theme gadget")
+    if "homeLink" in xml:
+        fail("PageList homeLink is not a valid Blogger setting")
 
 
 def test_xml_shape(xml: str) -> None:

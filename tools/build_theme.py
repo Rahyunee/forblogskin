@@ -362,7 +362,7 @@ Version:     1.0.0
           <b:loop values='data:links' var='link'>
             <li>
               <b:class cond='data:link.isCurrentPage' name='selected'/>
-              <a expr:href='data:link.target'><data:link.title/></a>
+              <a expr:href='data:link.href'><data:link.title/></a>
             </li>
           </b:loop>
         </ul>
@@ -467,19 +467,30 @@ Version:     1.0.0
             <b:widget-settings>
               <b:widget-setting name='pageListJson'><![CDATA[{{"home":{{"href":"http://hotdeal4parents.blogspot.com/","position":0,"title":"홈"}}}}]]></b:widget-setting>
               <b:widget-setting name='homeTitle'>홈</b:widget-setting>
-              <b:widget-setting name='homeLink'>true</b:widget-setting>
             </b:widget-settings>
             <b:includable id='main'><b:include name='content'/></b:includable>
             <b:includable id='content'>
               <ul>
                 <b:loop values='data:links' var='link'>
-                  <li>
-                    <b:class cond='data:link.isCurrentPage' name='selected'/>
-                    <a expr:href='data:link.target'><data:link.title/></a>
-                  </li>
+                  <b:include name='pageLink'/>
                 </b:loop>
               </ul>
             </b:includable>
+            <b:includable id='pageLink'>
+              <li>
+                <b:class cond='data:link.isCurrentPage' name='selected'/>
+                <a expr:href='data:link.href'><data:link.title/></a>
+              </li>
+            </b:includable>
+            <b:includable id='pageList'>
+              <ul>
+                <b:loop values='data:links' var='link'>
+                  <b:include name='pageLink'/>
+                </b:loop>
+              </ul>
+            </b:includable>
+            <b:includable id='overflowButton'><b:comment>unused</b:comment></b:includable>
+            <b:includable id='overflowablePageList'><b:include name='pageList'/></b:includable>
           </b:widget>
         </b:section>
       </nav>
@@ -737,6 +748,7 @@ Version:     1.0.0
               <b:widget-setting name='numItemsToShow'>5</b:widget-setting>
               <b:widget-setting name='showThumbnails'>false</b:widget-setting>
               <b:widget-setting name='showSnippets'>false</b:widget-setting>
+              <b:widget-setting name='timeRange'>ALL_TIME</b:widget-setting>
             </b:widget-settings>
             <b:includable id='main' var='this'>
               <section class='sidebar-widget'>
