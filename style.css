@@ -911,6 +911,7 @@ button { cursor: pointer; }
 .header-actions .widget { display: block; }
 
 #ad-sources { display: none; }
+.ad-template { display: none !important; }
 body#layout #ad-sources {
   display: grid;
   gap: 12px;

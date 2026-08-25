@@ -36,24 +36,211 @@ ADSENSE_BOTTOM = """<ins class="adsbygoogle"
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>"""
 
 
-SUPER_IDS = [
+# Blogger restore rejects widget IDs that are not {Type}{Number}, e.g. HTML1.
+# Do not use names like HTMLAdTop. JS targets section ids, not widget ids.
+
+COMMENT_XML = """            <b:includable id='addComments'>
+              <a expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+                <b:message name='messages.postAComment'/>
+              </a>
+            </b:includable>
+            <b:includable id='commentAuthorAvatar'>
+              <div class='avatar-image-container'>
+                <img class='author-avatar' expr:src='data:comment.authorAvatarSrc' height='36' width='36'/>
+              </div>
+            </b:includable>
+            <b:includable id='commentDeleteIcon' var='comment'>
+              <span expr:class='&quot;item-control &quot; + data:comment.adminClass'>
+                <b:if cond='data:showCmtPopup'>
+                  <div class='goog-toggle-button'>
+                    <div class='goog-inline-block comment-action-icon'/>
+                  </div>
+                  <b:else/>
+                  <a class='comment-delete' expr:href='data:comment.deleteUrl' expr:title='data:messages.deleteComment'>삭제</a>
+                </b:if>
+              </span>
+            </b:includable>
+            <b:includable id='commentForm' var='post'>
+              <div class='comment-form'>
+                <a name='comment-form'/>
+                <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+                  <p><data:this.messages.blogComment/></p>
+                </b:if>
+                <b:include data='post' name='commentFormIframeSrc'/>
+                <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+                <data:post.cmtfpIframe/>
+                <script type='text/javascript'>
+                  BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+                </script>
+              </div>
+            </b:includable>
+            <b:includable id='commentFormIframeSrc' var='post'>
+              <a expr:href='data:post.commentFormIframeSrc' id='comment-editor-src'/>
+            </b:includable>
+            <b:includable id='commentItem' var='comment'>
+              <div class='comment' expr:id='&quot;c&quot; + data:comment.id'>
+                <b:include cond='data:blog.enabledCommentProfileImages' name='commentAuthorAvatar'/>
+                <div class='comment-block'>
+                  <div class='comment-author'>
+                    <b:if cond='data:comment.authorUrl'>
+                      <b:message name='messages.authorSaidWithLink'>
+                        <b:param expr:value='data:comment.author' name='authorName'/>
+                        <b:param expr:value='data:comment.authorUrl' name='authorUrl'/>
+                      </b:message>
+                      <b:else/>
+                      <b:message name='messages.authorSaid'>
+                        <b:param expr:value='data:comment.author' name='authorName'/>
+                      </b:message>
+                    </b:if>
+                  </div>
+                  <div expr:class='&quot;comment-body&quot; + (data:comment.isDeleted ? &quot; deleted&quot; : &quot;&quot;)'>
+                    <data:comment.body/>
+                  </div>
+                  <div class='comment-footer'>
+                    <span class='comment-timestamp'>
+                      <a expr:href='data:comment.url' title='comment permalink'><data:comment.timestamp/></a>
+                      <b:include data='comment' name='commentDeleteIcon'/>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </b:includable>
+            <b:includable id='commentList' var='comments'>
+              <div id='comments-block'>
+                <b:loop values='data:comments' var='comment'>
+                  <b:include data='comment' name='commentItem'/>
+                </b:loop>
+              </div>
+            </b:includable>
+            <b:includable id='commentPicker' var='post'>
+              <b:if cond='data:post.commentSource == 1'>
+                <b:include data='post' name='iframeComments'/>
+                <b:elseif cond='data:post.showThreadedComments'/>
+                <b:include data='post' name='threadedComments'/>
+                <b:else/>
+                <b:include data='post' name='comments'/>
+              </b:if>
+            </b:includable>
+            <b:includable id='comments' var='post'>
+              <section expr:class='&quot;comments&quot; + (data:post.embedCommentForm ? &quot; embed&quot; : &quot;&quot;)' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+                <a name='comments'/>
+                <b:if cond='data:post.allowComments'>
+                  <b:include name='commentsTitle'/>
+                  <div expr:id='data:widget.instanceId + &quot;_comments-block-wrapper&quot;'>
+                    <b:include cond='data:post.comments' data='post.comments' name='commentList'/>
+                  </div>
+                  <b:if cond='data:post.commentPagingRequired'>
+                    <div class='paging-control-container'>
+                      <b:if cond='data:post.hasOlderLinks'>
+                        <a expr:class='data:post.oldLinkClass' expr:href='data:post.oldestLinkUrl'><data:messages.oldest/></a>
+                        <a expr:class='data:post.oldLinkClass' expr:href='data:post.olderLinkUrl'><data:messages.older/></a>
+                      </b:if>
+                      <span class='comment-range-text'><data:post.commentRangeText/></span>
+                      <b:if cond='data:post.hasNewerLinks'>
+                        <a expr:class='data:post.newLinkClass' expr:href='data:post.newerLinkUrl'><data:messages.newer/></a>
+                        <a expr:class='data:post.newLinkClass' expr:href='data:post.newestLinkUrl'><data:messages.newest/></a>
+                      </b:if>
+                    </div>
+                  </b:if>
+                  <div class='footer'>
+                    <b:if cond='data:post.embedCommentForm'>
+                      <b:if cond='data:post.allowNewComments'>
+                        <b:include data='post' name='commentForm'/>
+                        <b:else/>
+                        <data:post.noNewCommentsText/>
+                      </b:if>
+                      <b:else/>
+                      <b:if cond='data:post.allowComments'>
+                        <b:include data='post' name='addComments'/>
+                      </b:if>
+                    </b:if>
+                  </div>
+                </b:if>
+              </section>
+            </b:includable>
+            <b:includable id='commentsLink'>
+              <a class='comment-link' expr:href='data:post.commentsUrl' expr:onclick='data:post.commentsUrlOnclick'>
+                <b:if cond='data:post.numberOfComments &gt; 0'>
+                  <b:message name='messages.numberOfComments'>
+                    <b:param expr:value='data:post.numberOfComments' name='numComments'/>
+                  </b:message>
+                  <b:else/>
+                  <data:messages.postAComment/>
+                </b:if>
+              </a>
+            </b:includable>
+            <b:includable id='commentsLinkIframe'>
+              <span class='cmt_count_iframe_holder' expr:data-count='data:post.numberOfComments' expr:data-onclick='data:post.commentsUrlOnclick' expr:data-post-url='data:post.url' expr:data-url='data:post.url.canonical.http'/>
+            </b:includable>
+            <b:includable id='commentsTitle'>
+              <h3 class='title'><data:post.numberOfComments/> <data:messages.comments/></h3>
+            </b:includable>
+            <b:includable id='iframeComments' var='post'>
+              <b:if cond='data:post.allowIframeComments'>
+                <script expr:src='data:post.iframeCommentSrc' type='text/javascript'/>
+                <div class='cmt_iframe_holder' expr:data-href='data:post.url.canonical' expr:data-viewtype='data:post.viewType'/>
+                <b:if cond='!data:post.embedCommentForm'>
+                  <b:include data='post' name='commentsLink'/>
+                </b:if>
+              </b:if>
+            </b:includable>
+            <b:includable id='manageComments'>
+              <a expr:href='data:post.manageCommentsUrl' expr:onclick='data:post.manageCommentsUrlOnclick'>
+                <b:message name='messages.manageComments'/>
+              </a>
+            </b:includable>
+            <b:includable id='threadedCommentForm' var='post'>
+              <div class='comment-form'>
+                <a name='comment-form'/>
+                <b:if cond='data:this.messages.blogComment != &quot;&quot;'>
+                  <p><data:this.messages.blogComment/></p>
+                </b:if>
+                <b:include data='post' name='commentFormIframeSrc'/>
+                <iframe allowtransparency='allowtransparency' class='blogger-iframe-colorize blogger-comment-from-post' expr:height='data:cmtIframeInitialHeight ?: &quot;90px&quot;' frameborder='0' id='comment-editor' name='comment-editor' src='' width='100%'/>
+                <data:post.cmtfpIframe/>
+                <script type='text/javascript'>
+                  BLOG_CMT_createIframe(&#39;<data:post.appRpcRelayPath/>&#39;);
+                </script>
+              </div>
+            </b:includable>
+            <b:includable id='threadedCommentJs' var='post'>
+              <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
+              <b:template-script inline='true' name='threaded_comments'/>
+              <script type='text/javascript'>
+                blogger.widgets.blog.initThreadedComments(
+                <data:post.commentJso/>,
+                <data:post.commentMsgs/>,
+                <data:post.commentConfig/>);
+              </script>
+            </b:includable>
+            <b:includable id='threadedComments' var='post'>
+              <section class='comments threaded' expr:data-embed='data:post.embedCommentForm' expr:data-num-comments='data:post.numberOfComments' id='comments'>
+                <a name='comments'/>
+                <b:include name='commentsTitle'/>
+                <div class='comments-content'>
+                  <b:if cond='data:post.embedCommentForm'>
+                    <b:include data='post' name='threadedCommentJs'/>
+                  </b:if>
+                  <div id='comment-holder'>
+                    <data:post.commentHtml/>
+                  </div>
+                </div>
+                <p class='comment-footer'>
+                  <b:if cond='data:post.allowNewComments'>
+                    <b:include data='post' name='threadedCommentForm'/>
+                    <b:else/>
+                    <data:post.noNewCommentsText/>
+                  </b:if>
+                </p>
+              </section>
+            </b:includable>"""
+
+STUB_IDS = [
     ("aboutPostAuthor", ""),
-    ("addComments", ""),
     ("backLinks", " var='post'"),
     ("blogThisShare", ""),
     ("bylineByName", " var='byline'"),
     ("bylineRegion", " var='regionItems'"),
-    ("commentAuthorAvatar", ""),
-    ("commentDeleteIcon", " var='comment'"),
-    ("commentForm", " var='post'"),
-    ("commentFormIframeSrc", " var='post'"),
-    ("commentItem", " var='comment'"),
-    ("commentList", " var='comments'"),
-    ("commentPicker", " var='post'"),
-    ("comments", " var='post'"),
-    ("commentsLink", ""),
-    ("commentsLinkIframe", ""),
-    ("commentsTitle", ""),
     ("defaultAdUnit", ""),
     ("emailPostIcon", ""),
     ("facebookShare", ""),
@@ -61,9 +248,7 @@ SUPER_IDS = [
     ("feedLinksBody", " var='links'"),
     ("googlePlusShare", ""),
     ("homePageLink", ""),
-    ("iframeComments", " var='post'"),
     ("linkShare", ""),
-    ("manageComments", ""),
     ("otherSharingButton", ""),
     ("platformShare", ""),
     ("postFooterAuthorProfile", " var='post'"),
@@ -78,36 +263,27 @@ SUPER_IDS = [
     ("sharingButtons", ""),
     ("sharingButtonsMenu", ""),
     ("sharingPlatformIcon", ""),
-    ("threadedCommentForm", " var='post'"),
-    ("threadedCommentJs", " var='post'"),
-    ("threadedComments", " var='post'"),
     ("tooltipCss", ""),
 ]
 
-super_blocks = []
-for name, var in SUPER_IDS:
-    data_attr = " data='post'" if "post" in var else ""
-    if name in ("commentDeleteIcon",):
-        data_attr = " data='comment'"
-    if name in ("commentList",):
-        data_attr = " data='comments'"
-    if name in ("bylineByName",):
-        data_attr = " data='byline'"
-    if name in ("bylineRegion",):
-        data_attr = " data='regionItems'"
-    if name in ("feedLinksBody",):
-        data_attr = " data='links'"
-    super_blocks.append(
-        f"            <b:includable id='{name}'{var}>\n"
-        f"              <b:include{data_attr} name='super.{name}'/>\n"
-        f"            </b:includable>"
-    )
-SUPER_XML = "\n".join(super_blocks)
+STUB_XML = "\n".join(
+    f"            <b:includable id='{name}'{var}><b:comment>unused</b:comment></b:includable>"
+    for name, var in STUB_IDS
+)
 
 XML = f"""<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.2.0' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+<html b:css='false' b:defaultwidgetversion='2' b:layoutsVersion='3' b:responsive='true' b:templateVersion='1.0.0' expr:class='data:blog.languageDirection' expr:dir='data:blog.languageDirection' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
 <head>
+  <meta content='ea6ff9bb5eb9b747dfe69fbe5d123c620bcf5dc8' name='naver-site-verification'/>
+  <script async='async' src='https://www.googletagmanager.com/gtag/js?id=G-KDJJ18MT54'/>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){{dataLayer.push(arguments);}}
+    gtag(&#39;js&#39;, new Date());
+    gtag(&#39;config&#39;, &#39;G-KDJJ18MT54&#39;);
+  </script>
+  <script async='async' crossorigin='anonymous' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6692939836499331'/>
   <b:include name='theme-head'/>
   <b:skin version='1.0.0'><![CDATA[/*
 -----------------------------------------------
@@ -134,14 +310,6 @@ Version:     1.0.0
     <b:variable default='0' name='main.column.left.width' type='length' value='0'/>
     <b:variable default='280px' name='main.column.right.width' type='length' value='280px'/>
   </b:template-skin>
-</head>
-<body>
-  <b:class cond='data:view.isHomepage' name='home'/>
-  <b:class cond='data:view.isPost' name='item'/>
-  <b:class cond='data:view.isPage' name='static-page'/>
-  <b:class cond='data:view.isArchive or data:view.search.label or data:view.search.query' name='archive'/>
-  <b:class cond='data:view.isError' name='error404'/>
-
   <b:defaultmarkups>
     <b:defaultmarkup type='Common'>
       <b:includable id='widget-title'>
@@ -155,20 +323,11 @@ Version:     1.0.0
         <meta expr:content='data:view.description.escaped' name='description'/>
         <meta expr:content='&quot;text/html; charset=&quot; + data:blog.encoding' http-equiv='Content-Type'/>
         <meta content='#ffffff' name='theme-color'/>
-        <meta content='ea6ff9bb5eb9b747dfe69fbe5d123c620bcf5dc8' name='naver-site-verification'/>
         <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
         <link expr:href='data:view.url.canonical' rel='canonical'/>
         <link href='https://fonts.googleapis.com' rel='preconnect'/>
         <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
         <link href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&amp;display=swap' rel='stylesheet'/>
-        <script async='async' src='https://www.googletagmanager.com/gtag/js?id=G-KDJJ18MT54'/>
-        <script>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){{dataLayer.push(arguments);}}
-          gtag(&#39;js&#39;, new Date());
-          gtag(&#39;config&#39;, &#39;G-KDJJ18MT54&#39;);
-        </script>
-        <script async='async' crossorigin='anonymous' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6692939836499331'/>
         <data:blog.feedLinks/>
         <data:blog.meTag/>
         <b:include name='openGraph'/>
@@ -260,8 +419,15 @@ Version:     1.0.0
       </b:includable>
     </b:defaultmarkup>
   </b:defaultmarkups>
-
   <b:include data='blog' name='google-analytics'/>
+</head>
+<body>
+  <b:class cond='data:view.isHomepage' name='home'/>
+  <b:class cond='data:view.isPost' name='item'/>
+  <b:class cond='data:view.isPage' name='static-page'/>
+  <b:class cond='data:view.isArchive or data:view.search.label or data:view.search.query' name='archive'/>
+  <b:class cond='data:view.isError' name='error404'/>
+
   <a class='skip-link' href='#content'>본문 바로가기</a>
   <div class='reading-progress' aria-hidden='true'><span/></div>
 
@@ -367,7 +533,6 @@ Version:     1.0.0
             <b:include name='searchMessage'/>
             <div class='blog-posts hfeed'>
               <b:class cond='data:view.isMultipleItems' name='post-list'/>
-              <b:attr cond='data:view.isMultipleItems' name='data-post-list' value='true'/>
               <b:loop index='i' values='data:posts' var='post'>
                 <b:include data='post' name='postCommentsAndAd'/>
               </b:loop>
@@ -443,9 +608,9 @@ Version:     1.0.0
             <div class='post-body article-body' data-article-body='true' expr:id='&quot;post-body-&quot; + data:post.id'>
               <data:post.body/>
             </div>
-            <template id='article-middle-ad-template'>
+            <div class='ad-template' id='article-middle-ad-template'>
               <div class='ad-slot ad-slot--article-middle' data-auto-ad='middle' aria-label='본문 중간 광고'><span class='ad-label'>AD</span></div>
-            </template>
+            </div>
             <div class='ad-slot ad-slot--article-bottom' aria-label='본문 하단 광고'><span class='ad-label'>AD</span></div>
             <b:if cond='data:post.labels'>
               <section class='article-labels'>
@@ -530,14 +695,15 @@ Version:     1.0.0
           <b:includable id='nextPageLink'><b:comment>unused</b:comment></b:includable>
           <b:includable id='previousPageLink'><b:comment>unused</b:comment></b:includable>
           <b:includable id='threadedCommentsDisqus' var='post'><b:comment>disabled</b:comment></b:includable>
-{SUPER_XML}
+{COMMENT_XML}
+{STUB_XML}
         </b:widget>
       </b:section>
 
       <b:if cond='data:view.isMultipleItems'>
-        <template id='list-ad-template'>
+        <div class='ad-template' id='list-ad-template'>
           <div class='ad-slot ad-slot--list-middle' data-auto-ad='list' aria-label='목록 중간 광고'><span class='ad-label'>AD</span></div>
-        </template>
+        </div>
         <div class='ad-slot ad-slot--list-bottom' aria-label='목록 하단 광고'><span class='ad-label'>AD</span></div>
       </b:if>
     </main>
@@ -608,18 +774,18 @@ Version:     1.0.0
 
   <footer class='site-footer'>
     <p><a expr:href='data:blog.homepageUrl'><data:blog.title/></a></p>
-    <b:section id='footer' name='푸터' showaddelement='yes'/>
+    <b:section id='footer' name='푸터' showaddelement='yes'></b:section>
   </footer>
 
   <div id='ad-sources'>
-    <b:section id='ad-article-top' maxwidgets='1' name='본문 상단 광고' showaddelement='yes'>{html_widget('HTMLAdTop')}</b:section>
-    <b:section id='ad-article-middle' maxwidgets='1' name='본문 중간 광고' showaddelement='yes'>{html_widget('HTMLAdMiddle')}</b:section>
-    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>{html_widget('HTMLAdBottom', '', ADSENSE_BOTTOM)}</b:section>
-    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>{html_widget('HTMLAdSidebar', '', ADSENSE_SIDEBAR)}</b:section>
-    <b:section id='ad-list-top' maxwidgets='1' name='목록 상단 광고' showaddelement='yes'>{html_widget('HTMLAdListTop')}</b:section>
-    <b:section id='ad-list-middle' maxwidgets='1' name='목록 중간 광고' showaddelement='yes'>{html_widget('HTMLAdListMiddle')}</b:section>
-    <b:section id='ad-list-bottom' maxwidgets='1' name='목록 하단 광고' showaddelement='yes'>{html_widget('HTMLAdListBottom')}</b:section>
-    <b:section id='ad-mobile-sticky' maxwidgets='1' name='모바일 하단 고정 광고' showaddelement='yes'>{html_widget('HTMLAdMobile')}</b:section>
+    <b:section id='ad-article-top' maxwidgets='1' name='본문 상단 광고' showaddelement='yes'>{html_widget('HTML1')}</b:section>
+    <b:section id='ad-article-middle' maxwidgets='1' name='본문 중간 광고' showaddelement='yes'>{html_widget('HTML2')}</b:section>
+    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>{html_widget('HTML3', '', ADSENSE_BOTTOM)}</b:section>
+    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>{html_widget('HTML4', '', ADSENSE_SIDEBAR)}</b:section>
+    <b:section id='ad-list-top' maxwidgets='1' name='목록 상단 광고' showaddelement='yes'>{html_widget('HTML5')}</b:section>
+    <b:section id='ad-list-middle' maxwidgets='1' name='목록 중간 광고' showaddelement='yes'>{html_widget('HTML6')}</b:section>
+    <b:section id='ad-list-bottom' maxwidgets='1' name='목록 하단 광고' showaddelement='yes'>{html_widget('HTML7')}</b:section>
+    <b:section id='ad-mobile-sticky' maxwidgets='1' name='모바일 하단 고정 광고' showaddelement='yes'>{html_widget('HTML8')}</b:section>
   </div>
 
   <script>
@@ -639,6 +805,30 @@ Version:     1.0.0
 </html>
 """
 
+def validate_theme(xml: str) -> None:
+    import re
+
+    errors = []
+    head = xml.split("</head>", 1)[0]
+    body = xml.split("</head>", 1)[1] if "</head>" in xml else xml
+    if "<b:defaultmarkups>" not in head:
+        errors.append("b:defaultmarkups must live in <head>")
+    if "<b:defaultmarkups>" in body:
+        errors.append("b:defaultmarkups must not appear in <body>")
+    if "super." in xml:
+        errors.append("super.* includes are not allowed")
+    if re.search(r"<template[\s>]", xml):
+        errors.append("<template> tags are not allowed")
+    if re.search(r"<b:section\b[^>]*/>", xml):
+        errors.append("self-closing b:section is not allowed")
+    for widget_id in re.findall(r"<b:widget[^>]*\bid='([^']+)'", xml):
+        if not re.fullmatch(r"[A-Za-z]+\d+", widget_id):
+            errors.append(f"invalid widget id {widget_id!r}")
+    if errors:
+        raise SystemExit("Theme validation failed:\n- " + "\n- ".join(errors))
+
+
 out = ROOT / "sugarcoat_blogger_theme.xml"
+validate_theme(XML)
 out.write_text(XML, encoding="utf-8")
 print(f"Wrote {out} ({out.stat().st_size} bytes)")
