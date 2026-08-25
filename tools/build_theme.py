@@ -205,7 +205,6 @@ COMMENT_XML = """            <b:includable id='addComments'>
             </b:includable>
             <b:includable id='threadedCommentJs' var='post'>
               <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
-              <b:template-script inline='true' name='threaded_comments'/>
               <script type='text/javascript'>
                 blogger.widgets.blog.initThreadedComments(
                 <data:post.commentJso/>,
@@ -466,7 +465,7 @@ Version:     1.0.0
         <b:section id='header-nav' maxwidgets='1' name='상단 메뉴' showaddelement='yes'>
           <b:widget id='PageList1' locked='false' title='페이지 목록' type='PageList' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='pageListJson'><![CDATA[{{"home": {{"href": "/", "position": 0, "title": "홈"}}}}]]></b:widget-setting>
+              <b:widget-setting name='pageListJson'><![CDATA[{{"home":{{"href":"http://hotdeal4parents.blogspot.com/","position":0,"title":"홈"}}}}]]></b:widget-setting>
               <b:widget-setting name='homeTitle'>홈</b:widget-setting>
               <b:widget-setting name='homeLink'>true</b:widget-setting>
             </b:widget-settings>
@@ -486,7 +485,7 @@ Version:     1.0.0
       </nav>
       <div class='header-actions'>
         <b:section id='header-search' maxwidgets='1' name='검색' showaddelement='no'>
-          <b:widget id='BlogSearch1' locked='true' title='검색' type='BlogSearch' version='2' visible='true'>
+          <b:widget id='BlogSearch1' locked='false' title='검색' type='BlogSearch' version='2' visible='true'>
             <b:includable id='main'><b:include name='content'/></b:includable>
             <b:includable id='content'>
               <form class='search-form' expr:action='data:blog.searchUrl' role='search'>
@@ -778,23 +777,25 @@ Version:     1.0.0
   </footer>
 
   <div id='ad-sources'>
-    <b:section id='ad-article-top' maxwidgets='1' name='본문 상단 광고' showaddelement='yes'>{html_widget('HTML1')}</b:section>
-    <b:section id='ad-article-middle' maxwidgets='1' name='본문 중간 광고' showaddelement='yes'>{html_widget('HTML2')}</b:section>
-    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>{html_widget('HTML3', '', ADSENSE_BOTTOM)}</b:section>
-    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>{html_widget('HTML4', '', ADSENSE_SIDEBAR)}</b:section>
-    <b:section id='ad-list-top' maxwidgets='1' name='목록 상단 광고' showaddelement='yes'>{html_widget('HTML5')}</b:section>
-    <b:section id='ad-list-middle' maxwidgets='1' name='목록 중간 광고' showaddelement='yes'>{html_widget('HTML6')}</b:section>
-    <b:section id='ad-list-bottom' maxwidgets='1' name='목록 하단 광고' showaddelement='yes'>{html_widget('HTML7')}</b:section>
-    <b:section id='ad-mobile-sticky' maxwidgets='1' name='모바일 하단 고정 광고' showaddelement='yes'>{html_widget('HTML8')}</b:section>
+    <b:section id='ad-article-top' maxwidgets='1' name='본문 상단 광고' showaddelement='yes'>{html_widget('HTML101')}</b:section>
+    <b:section id='ad-article-middle' maxwidgets='1' name='본문 중간 광고' showaddelement='yes'>{html_widget('HTML102')}</b:section>
+    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>{html_widget('HTML103', '', ADSENSE_BOTTOM)}</b:section>
+    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>{html_widget('HTML104', '', ADSENSE_SIDEBAR)}</b:section>
+    <b:section id='ad-list-top' maxwidgets='1' name='목록 상단 광고' showaddelement='yes'>{html_widget('HTML105')}</b:section>
+    <b:section id='ad-list-middle' maxwidgets='1' name='목록 중간 광고' showaddelement='yes'>{html_widget('HTML106')}</b:section>
+    <b:section id='ad-list-bottom' maxwidgets='1' name='목록 하단 광고' showaddelement='yes'>{html_widget('HTML107')}</b:section>
+    <b:section id='ad-mobile-sticky' maxwidgets='1' name='모바일 하단 고정 광고' showaddelement='yes'>{html_widget('HTML108')}</b:section>
   </div>
 
-  <script>
+  <script type='text/javascript'>
+  //<![CDATA[
   window.sugarcoatConfig = {{
     articleMiddleAdAfterHeading: 2,
     listAdAfterItem: 4,
     showAdPlaceholders: false,
     enableMobileStickyAd: false
   }};
+  //]]>
   </script>
   <script type='text/javascript'>
   //<![CDATA[
@@ -824,6 +825,11 @@ def validate_theme(xml: str) -> None:
     for widget_id in re.findall(r"<b:widget[^>]*\bid='([^']+)'", xml):
         if not re.fullmatch(r"[A-Za-z]+\d+", widget_id):
             errors.append(f"invalid widget id {widget_id!r}")
+        if widget_id.startswith("HTML"):
+            number = int(widget_id[4:])
+            # Current live Easypress already uses these HTML gadget numbers.
+            if number in {1, 8, 29, 30, 48, 49, 55, 57, 73, 78, 79, 80, 81, 87, 99}:
+                errors.append(f"HTML gadget {widget_id} collides with the live theme")
     if errors:
         raise SystemExit("Theme validation failed:\n- " + "\n- ".join(errors))
 

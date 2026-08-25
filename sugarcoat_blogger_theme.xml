@@ -1194,7 +1194,7 @@ body#layout .ad-slot { min-height: 80px; }
         <b:section id='header-nav' maxwidgets='1' name='상단 메뉴' showaddelement='yes'>
           <b:widget id='PageList1' locked='false' title='페이지 목록' type='PageList' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='pageListJson'><![CDATA[{"home": {"href": "/", "position": 0, "title": "홈"}}]]></b:widget-setting>
+              <b:widget-setting name='pageListJson'><![CDATA[{"home":{"href":"http://hotdeal4parents.blogspot.com/","position":0,"title":"홈"}}]]></b:widget-setting>
               <b:widget-setting name='homeTitle'>홈</b:widget-setting>
               <b:widget-setting name='homeLink'>true</b:widget-setting>
             </b:widget-settings>
@@ -1214,7 +1214,7 @@ body#layout .ad-slot { min-height: 80px; }
       </nav>
       <div class='header-actions'>
         <b:section id='header-search' maxwidgets='1' name='검색' showaddelement='no'>
-          <b:widget id='BlogSearch1' locked='true' title='검색' type='BlogSearch' version='2' visible='true'>
+          <b:widget id='BlogSearch1' locked='false' title='검색' type='BlogSearch' version='2' visible='true'>
             <b:includable id='main'><b:include name='content'/></b:includable>
             <b:includable id='content'>
               <form class='search-form' expr:action='data:blog.searchUrl' role='search'>
@@ -1589,7 +1589,6 @@ body#layout .ad-slot { min-height: 80px; }
             </b:includable>
             <b:includable id='threadedCommentJs' var='post'>
               <script async='async' expr:src='data:post.commentSrc' type='text/javascript'/>
-              <b:template-script inline='true' name='threaded_comments'/>
               <script type='text/javascript'>
                 blogger.widgets.blog.initThreadedComments(
                 <data:post.commentJso/>,
@@ -1728,7 +1727,7 @@ body#layout .ad-slot { min-height: 80px; }
 
   <div id='ad-sources'>
     <b:section id='ad-article-top' maxwidgets='1' name='본문 상단 광고' showaddelement='yes'>
-          <b:widget id='HTML1' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML101' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
             </b:widget-settings>
@@ -1737,7 +1736,7 @@ body#layout .ad-slot { min-height: 80px; }
             </b:includable>
           </b:widget></b:section>
     <b:section id='ad-article-middle' maxwidgets='1' name='본문 중간 광고' showaddelement='yes'>
-          <b:widget id='HTML2' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML102' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
             </b:widget-settings>
@@ -1746,7 +1745,7 @@ body#layout .ad-slot { min-height: 80px; }
             </b:includable>
           </b:widget></b:section>
     <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>
-          <b:widget id='HTML3' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML103' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[<ins class="adsbygoogle"
      style="display:block;width:336px;height:280px"
@@ -1759,7 +1758,7 @@ body#layout .ad-slot { min-height: 80px; }
             </b:includable>
           </b:widget></b:section>
     <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>
-          <b:widget id='HTML4' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML104' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[<ins class="adsbygoogle"
      style="display:block;width:300px;height:250px"
@@ -1772,7 +1771,7 @@ body#layout .ad-slot { min-height: 80px; }
             </b:includable>
           </b:widget></b:section>
     <b:section id='ad-list-top' maxwidgets='1' name='목록 상단 광고' showaddelement='yes'>
-          <b:widget id='HTML5' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML105' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
             </b:widget-settings>
@@ -1781,7 +1780,7 @@ body#layout .ad-slot { min-height: 80px; }
             </b:includable>
           </b:widget></b:section>
     <b:section id='ad-list-middle' maxwidgets='1' name='목록 중간 광고' showaddelement='yes'>
-          <b:widget id='HTML6' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML106' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
             </b:widget-settings>
@@ -1790,7 +1789,7 @@ body#layout .ad-slot { min-height: 80px; }
             </b:includable>
           </b:widget></b:section>
     <b:section id='ad-list-bottom' maxwidgets='1' name='목록 하단 광고' showaddelement='yes'>
-          <b:widget id='HTML7' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML107' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
             </b:widget-settings>
@@ -1799,7 +1798,7 @@ body#layout .ad-slot { min-height: 80px; }
             </b:includable>
           </b:widget></b:section>
     <b:section id='ad-mobile-sticky' maxwidgets='1' name='모바일 하단 고정 광고' showaddelement='yes'>
-          <b:widget id='HTML8' locked='false' title='' type='HTML' version='2' visible='true'>
+          <b:widget id='HTML108' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
             </b:widget-settings>
@@ -1809,13 +1808,15 @@ body#layout .ad-slot { min-height: 80px; }
           </b:widget></b:section>
   </div>
 
-  <script>
+  <script type='text/javascript'>
+  //<![CDATA[
   window.sugarcoatConfig = {
     articleMiddleAdAfterHeading: 2,
     listAdAfterItem: 4,
     showAdPlaceholders: false,
     enableMobileStickyAd: false
   };
+  //]]>
   </script>
   <script type='text/javascript'>
   //<![CDATA[

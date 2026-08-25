@@ -18,8 +18,8 @@ REQUIRED = [
     "ca-pub-6692939836499331",
     "7633913202",
     "1008345394",
-    "HTML1",
-    "HTML8",
+    "HTML101",
+    "HTML108",
     "commentPicker",
     "threadedComments",
     "ad-article-top",
@@ -64,8 +64,10 @@ def test_restore_rules(xml: str) -> None:
             fail(f"missing required token {token!r}")
     if "easypress" in xml.lower() or "adsensefarm" in xml.lower():
         fail("Easypress/adsensefarm leftover in apply XML")
-    if xml.count("id='HTML1'") != 1:
-        fail("HTML1 must appear exactly once")
+    if xml.count("id='HTML101'") != 1:
+        fail("HTML101 must appear exactly once")
+    if "id='HTML1'" in xml:
+        fail("HTML1 collides with the live theme gadget")
 
 
 def test_xml_shape(xml: str) -> None:
