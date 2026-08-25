@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble the Quietline Blogger XML theme from style.css and script.js."""
+"""Assemble the Sugarcoat Blogger XML theme from style.css and script.js."""
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -10,16 +10,30 @@ if "]]>" in CSS or "]]>" in JS:
     raise SystemExit("CDATA terminator found in CSS/JS")
 
 
-def html_widget(widget_id, title=""):
-    return f"""
-          <b:widget id='{widget_id}' locked='false' title='{title}' type='HTML' version='2' visible='true'>
-            <b:widget-settings>
-              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
-            </b:widget-settings>
-            <b:includable id='main'>
-              <div class='widget-content'><data:content/></div>
-            </b:includable>
-          </b:widget>"""
+def html_widget(widget_id, title="", content=""):
+    return (
+        f"\n          <b:widget id='{widget_id}' locked='false' title='{title}' type='HTML' version='2' visible='true'>\n"
+        "            <b:widget-settings>\n"
+        "              <b:widget-setting name='content'><![CDATA[" + content + "]]></b:widget-setting>\n"
+        "            </b:widget-settings>\n"
+        "            <b:includable id='main'>\n"
+        "              <div class='widget-content'><data:content/></div>\n"
+        "            </b:includable>\n"
+        "          </b:widget>"
+    )
+
+
+ADSENSE_SIDEBAR = """<ins class="adsbygoogle"
+     style="display:block;width:300px;height:250px"
+     data-ad-client="ca-pub-6692939836499331"
+     data-ad-slot="7633913202"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>"""
+
+ADSENSE_BOTTOM = """<ins class="adsbygoogle"
+     style="display:block;width:336px;height:280px"
+     data-ad-client="ca-pub-6692939836499331"
+     data-ad-slot="1008345394"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>"""
 
 
 SUPER_IDS = [
@@ -98,7 +112,7 @@ XML = f"""<?xml version="1.0" encoding="UTF-8" ?>
   <b:skin version='1.0.0'><![CDATA[/*
 -----------------------------------------------
 Blogger Template Style
-Name:        Quietline
+Name:        Sugarcoat
 Version:     1.0.0
 -----------------------------------------------
 
@@ -109,7 +123,7 @@ Version:     1.0.0
 <Variable name="posts.title.color" description="Title" type="color" default="#111111" value="#111111"/>
 <Variable name="main.color" description="Accent" type="color" default="#1f4f46" value="#1f4f46"/>
 </Group>
-<Variable name="body.text.font" description="Font" hideEditor="true" type="font" default="16px sans-serif" value="16px sans-serif"/>
+<Variable name="body.text.font" description="Font" hideEditor="true" type="font" default="16px IBM Plex Sans KR, sans-serif" value="16px IBM Plex Sans KR, sans-serif"/>
 <Variable name="posts.background.color" description="Surface" hideEditor="true" type="color" default="#ffffff" value="#ffffff"/>
 */
 
@@ -140,10 +154,21 @@ Version:     1.0.0
         <title><data:view.title.escaped/></title>
         <meta expr:content='data:view.description.escaped' name='description'/>
         <meta expr:content='&quot;text/html; charset=&quot; + data:blog.encoding' http-equiv='Content-Type'/>
-        <meta content='blogger' name='generator'/>
         <meta content='#ffffff' name='theme-color'/>
+        <meta content='ea6ff9bb5eb9b747dfe69fbe5d123c620bcf5dc8' name='naver-site-verification'/>
         <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
         <link expr:href='data:view.url.canonical' rel='canonical'/>
+        <link href='https://fonts.googleapis.com' rel='preconnect'/>
+        <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
+        <link href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&amp;display=swap' rel='stylesheet'/>
+        <script async='async' src='https://www.googletagmanager.com/gtag/js?id=G-KDJJ18MT54'/>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){{dataLayer.push(arguments);}}
+          gtag(&#39;js&#39;, new Date());
+          gtag(&#39;config&#39;, &#39;G-KDJJ18MT54&#39;);
+        </script>
+        <script async='async' crossorigin='anonymous' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6692939836499331'/>
         <data:blog.feedLinks/>
         <data:blog.meTag/>
         <b:include name='openGraph'/>
@@ -244,7 +269,7 @@ Version:     1.0.0
     <div class='site-header__inner'>
       <div class='brand'>
         <b:section id='header' maxwidgets='1' name='블로그 제목' showaddelement='no'>
-          <b:widget id='Header1' locked='true' title='Quietline' type='Header' version='2' visible='true'>
+          <b:widget id='Header1' locked='true' title='핫딜포페어런츠' type='Header' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='displayUrl'/>
               <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -589,8 +614,8 @@ Version:     1.0.0
   <div id='ad-sources'>
     <b:section id='ad-article-top' maxwidgets='1' name='본문 상단 광고' showaddelement='yes'>{html_widget('HTMLAdTop')}</b:section>
     <b:section id='ad-article-middle' maxwidgets='1' name='본문 중간 광고' showaddelement='yes'>{html_widget('HTMLAdMiddle')}</b:section>
-    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>{html_widget('HTMLAdBottom')}</b:section>
-    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>{html_widget('HTMLAdSidebar')}</b:section>
+    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>{html_widget('HTMLAdBottom', '', ADSENSE_BOTTOM)}</b:section>
+    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>{html_widget('HTMLAdSidebar', '', ADSENSE_SIDEBAR)}</b:section>
     <b:section id='ad-list-top' maxwidgets='1' name='목록 상단 광고' showaddelement='yes'>{html_widget('HTMLAdListTop')}</b:section>
     <b:section id='ad-list-middle' maxwidgets='1' name='목록 중간 광고' showaddelement='yes'>{html_widget('HTMLAdListMiddle')}</b:section>
     <b:section id='ad-list-bottom' maxwidgets='1' name='목록 하단 광고' showaddelement='yes'>{html_widget('HTMLAdListBottom')}</b:section>
@@ -598,7 +623,7 @@ Version:     1.0.0
   </div>
 
   <script>
-  window.quietlineConfig = {{
+  window.sugarcoatConfig = {{
     articleMiddleAdAfterHeading: 2,
     listAdAfterItem: 4,
     showAdPlaceholders: false,
@@ -614,6 +639,6 @@ Version:     1.0.0
 </html>
 """
 
-out = ROOT / "quietline_blogger_theme.xml"
+out = ROOT / "sugarcoat_blogger_theme.xml"
 out.write_text(XML, encoding="utf-8")
 print(f"Wrote {out} ({out.stat().st_size} bytes)")

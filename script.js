@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var config = window.quietlineConfig || {};
+  var config = window.sugarcoatConfig || {};
   var afterHeading = Number(config.articleMiddleAdAfterHeading || 2);
   var listAfter = Number(config.listAdAfterItem || 4);
   var showPlaceholders = Boolean(config.showAdPlaceholders);
@@ -242,14 +242,14 @@
     var closeButton = document.querySelector("[data-mobile-ad-close]");
     if (!wrapper || !enableSticky) return;
     wrapper.hidden = false;
-    if (sessionStorage.getItem("quietline-sticky-closed") === "1") {
+    if (sessionStorage.getItem("sugarcoat-sticky-closed") === "1") {
       wrapper.hidden = true;
       return;
     }
     if (closeButton) {
       closeButton.addEventListener("click", function () {
         wrapper.hidden = true;
-        sessionStorage.setItem("quietline-sticky-closed", "1");
+        sessionStorage.setItem("sugarcoat-sticky-closed", "1");
       });
     }
   }

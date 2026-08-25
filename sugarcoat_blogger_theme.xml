@@ -6,7 +6,7 @@
   <b:skin version='1.0.0'><![CDATA[/*
 -----------------------------------------------
 Blogger Template Style
-Name:        Quietline
+Name:        Sugarcoat
 Version:     1.0.0
 -----------------------------------------------
 
@@ -17,7 +17,7 @@ Version:     1.0.0
 <Variable name="posts.title.color" description="Title" type="color" default="#111111" value="#111111"/>
 <Variable name="main.color" description="Accent" type="color" default="#1f4f46" value="#1f4f46"/>
 </Group>
-<Variable name="body.text.font" description="Font" hideEditor="true" type="font" default="16px sans-serif" value="16px sans-serif"/>
+<Variable name="body.text.font" description="Font" hideEditor="true" type="font" default="16px IBM Plex Sans KR, sans-serif" value="16px IBM Plex Sans KR, sans-serif"/>
 <Variable name="posts.background.color" description="Surface" hideEditor="true" type="color" default="#ffffff" value="#ffffff"/>
 */
 
@@ -38,8 +38,8 @@ Version:     1.0.0
   --shell: 1080px;
   --gap: 40px;
   --radius: 8px;
-  --font: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif;
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -1048,10 +1048,21 @@ body#layout .ad-slot { min-height: 80px; }
         <title><data:view.title.escaped/></title>
         <meta expr:content='data:view.description.escaped' name='description'/>
         <meta expr:content='&quot;text/html; charset=&quot; + data:blog.encoding' http-equiv='Content-Type'/>
-        <meta content='blogger' name='generator'/>
         <meta content='#ffffff' name='theme-color'/>
+        <meta content='ea6ff9bb5eb9b747dfe69fbe5d123c620bcf5dc8' name='naver-site-verification'/>
         <link expr:href='data:blog.blogspotFaviconUrl' rel='icon' type='image/x-icon'/>
         <link expr:href='data:view.url.canonical' rel='canonical'/>
+        <link href='https://fonts.googleapis.com' rel='preconnect'/>
+        <link crossorigin='anonymous' href='https://fonts.gstatic.com' rel='preconnect'/>
+        <link href='https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;600;700&amp;display=swap' rel='stylesheet'/>
+        <script async='async' src='https://www.googletagmanager.com/gtag/js?id=G-KDJJ18MT54'/>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag(&#39;js&#39;, new Date());
+          gtag(&#39;config&#39;, &#39;G-KDJJ18MT54&#39;);
+        </script>
+        <script async='async' crossorigin='anonymous' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6692939836499331'/>
         <data:blog.feedLinks/>
         <data:blog.meTag/>
         <b:include name='openGraph'/>
@@ -1152,7 +1163,7 @@ body#layout .ad-slot { min-height: 80px; }
     <div class='site-header__inner'>
       <div class='brand'>
         <b:section id='header' maxwidgets='1' name='블로그 제목' showaddelement='no'>
-          <b:widget id='Header1' locked='true' title='Quietline' type='Header' version='2' visible='true'>
+          <b:widget id='Header1' locked='true' title='핫딜포페어런츠' type='Header' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='displayUrl'/>
               <b:widget-setting name='displayHeight'>0</b:widget-setting>
@@ -1650,7 +1661,11 @@ body#layout .ad-slot { min-height: 80px; }
     <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>
           <b:widget id='HTMLAdBottom' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+              <b:widget-setting name='content'><![CDATA[<ins class="adsbygoogle"
+     style="display:block;width:336px;height:280px"
+     data-ad-client="ca-pub-6692939836499331"
+     data-ad-slot="1008345394"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>]]></b:widget-setting>
             </b:widget-settings>
             <b:includable id='main'>
               <div class='widget-content'><data:content/></div>
@@ -1659,7 +1674,11 @@ body#layout .ad-slot { min-height: 80px; }
     <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>
           <b:widget id='HTMLAdSidebar' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
-              <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
+              <b:widget-setting name='content'><![CDATA[<ins class="adsbygoogle"
+     style="display:block;width:300px;height:250px"
+     data-ad-client="ca-pub-6692939836499331"
+     data-ad-slot="7633913202"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>]]></b:widget-setting>
             </b:widget-settings>
             <b:includable id='main'>
               <div class='widget-content'><data:content/></div>
@@ -1704,7 +1723,7 @@ body#layout .ad-slot { min-height: 80px; }
   </div>
 
   <script>
-  window.quietlineConfig = {
+  window.sugarcoatConfig = {
     articleMiddleAdAfterHeading: 2,
     listAdAfterItem: 4,
     showAdPlaceholders: false,
@@ -1716,7 +1735,7 @@ body#layout .ad-slot { min-height: 80px; }
 (function () {
   "use strict";
 
-  var config = window.quietlineConfig || {};
+  var config = window.sugarcoatConfig || {};
   var afterHeading = Number(config.articleMiddleAdAfterHeading || 2);
   var listAfter = Number(config.listAdAfterItem || 4);
   var showPlaceholders = Boolean(config.showAdPlaceholders);
@@ -1957,14 +1976,14 @@ body#layout .ad-slot { min-height: 80px; }
     var closeButton = document.querySelector("[data-mobile-ad-close]");
     if (!wrapper || !enableSticky) return;
     wrapper.hidden = false;
-    if (sessionStorage.getItem("quietline-sticky-closed") === "1") {
+    if (sessionStorage.getItem("sugarcoat-sticky-closed") === "1") {
       wrapper.hidden = true;
       return;
     }
     if (closeButton) {
       closeButton.addEventListener("click", function () {
         wrapper.hidden = true;
-        sessionStorage.setItem("quietline-sticky-closed", "1");
+        sessionStorage.setItem("sugarcoat-sticky-closed", "1");
       });
     }
   }
