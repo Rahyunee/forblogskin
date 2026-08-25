@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  var config = window.quietlineConfig || {};
+  var config = window.sugarcoatConfig || {};
   var afterHeading = Number(config.articleMiddleAdAfterHeading || 2);
   var listAfter = Number(config.listAdAfterItem || 4);
   var showPlaceholders = Boolean(config.showAdPlaceholders);
@@ -172,10 +172,19 @@
     });
   }
 
+  function hasInsertedAutoAd(root, kind) {
+    if (!root) return false;
+    var nodes = root.querySelectorAll('[data-auto-ad="' + kind + '"]');
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i].closest || !nodes[i].closest(".ad-template")) return true;
+    }
+    return false;
+  }
+
   function insertArticleMiddleAd() {
     var article = document.querySelector("[data-article-body], .item-post .post-body");
     var template = document.getElementById("article-middle-ad-template");
-    if (!article || !template || article.querySelector('[data-auto-ad="middle"]')) return;
+    if (!article || !template || hasInsertedAutoAd(article, "middle")) return;
 
     var headings = Array.prototype.slice.call(article.querySelectorAll("h2"));
     var anchor = headings[Math.max(afterHeading - 1, 0)];
@@ -191,7 +200,7 @@
   function insertListAd() {
     var list = document.querySelector("[data-post-list], .post-list");
     var template = document.getElementById("list-ad-template");
-    if (!list || !template || list.querySelector('[data-auto-ad="list"]')) return;
+    if (!list || !template || hasInsertedAutoAd(list, "list")) return;
     var cards = Array.prototype.slice.call(list.querySelectorAll(".post-card, .index-post"));
     var anchor = cards[Math.max(listAfter, 1) - 1];
     var node = cloneTemplateChild(template);
@@ -242,14 +251,14 @@
     var closeButton = document.querySelector("[data-mobile-ad-close]");
     if (!wrapper || !enableSticky) return;
     wrapper.hidden = false;
-    if (sessionStorage.getItem("quietline-sticky-closed") === "1") {
+    if (sessionStorage.getItem("sugarcoat-sticky-closed") === "1") {
       wrapper.hidden = true;
       return;
     }
     if (closeButton) {
       closeButton.addEventListener("click", function () {
         wrapper.hidden = true;
-        sessionStorage.setItem("quietline-sticky-closed", "1");
+        sessionStorage.setItem("sugarcoat-sticky-closed", "1");
       });
     }
   }

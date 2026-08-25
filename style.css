@@ -15,8 +15,8 @@
   --shell: 1080px;
   --gap: 40px;
   --radius: 8px;
-  --font: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif;
-  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  --font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
 * { box-sizing: border-box; }
@@ -911,6 +911,7 @@ button { cursor: pointer; }
 .header-actions .widget { display: block; }
 
 #ad-sources { display: none; }
+.ad-template { display: none !important; }
 body#layout #ad-sources {
   display: grid;
   gap: 12px;

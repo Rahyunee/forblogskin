@@ -1,4 +1,4 @@
-# Quietline Blogger 테마 설계 보고서
+# Sugarcoat Blogger 테마 설계 보고서
 
 ## 1. 업로드한 Blogspot 테마 분석
 
@@ -105,7 +105,7 @@ Main 720px + Sidebar 280px
 
 ## 5. 실제 코드
 
-적용 파일은 `quietline_blogger_theme.xml` 하나입니다. Blogger 테마 복원으로 올리면 됩니다.
+적용 파일은 `sugarcoat_blogger_theme.xml` 하나입니다. Blogger 테마 복원으로 올리면 됩니다.
 
 정적 확인용:
 
