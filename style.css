@@ -579,6 +579,17 @@ button { cursor: pointer; }
 }
 
 .ad-slot[hidden] { display: none !important; }
+.ad-slot.has-ad,
+.ad-slot:has(ins.adsbygoogle),
+.ad-slot:has(iframe) {
+  background: transparent;
+  border: none;
+  padding: 0;
+  min-height: 0;
+}
+.ad-slot.has-ad .ad-label,
+.ad-slot:has(ins.adsbygoogle) .ad-label,
+.ad-slot:has(iframe) .ad-label { display: none !important; }
 
 .ad-slot--article-top,
 .ad-slot--article-bottom { min-height: 250px; }

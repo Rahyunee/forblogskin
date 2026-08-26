@@ -168,8 +168,52 @@
       if (!slotHasAdContent(slot)) {
         slot.hidden = true;
         slot.setAttribute("aria-hidden", "true");
+      } else {
+        markFilledAdSlot(slot);
       }
     });
+  }
+
+  function markFilledAdSlot(slot) {
+    if (!slot.querySelector("ins.adsbygoogle, iframe, [data-ad-slot]")) return;
+    slot.classList.add("has-ad");
+    Array.prototype.forEach.call(slot.querySelectorAll(".ad-label"), function (label) {
+      label.hidden = true;
+    });
+  }
+
+  function widgetPayload(source) {
+    if (!source) return null;
+    var content = source.querySelector(".widget-content");
+    if (content && content.innerHTML.trim()) return content;
+    var widget = source.querySelector(".widget.HTML, .widget");
+    if (widget && widget.innerHTML.trim()) return widget;
+    return null;
+  }
+
+  function movePayload(source, target) {
+    var payload = widgetPayload(source);
+    if (!payload || !target) return;
+    while (payload.firstChild) {
+      target.appendChild(payload.firstChild);
+    }
+  }
+
+  function activateAdsense(root) {
+    if (!root) return;
+    var nodes = root.querySelectorAll("ins.adsbygoogle");
+    if (!nodes.length) return;
+    Array.prototype.forEach.call(nodes, function (ins) {
+      ins.removeAttribute("data-adsbygoogle-status");
+      ins.removeAttribute("data-ad-status");
+      ins.innerHTML = "";
+    });
+    window.adsbygoogle = window.adsbygoogle || [];
+    for (var i = 0; i < nodes.length; i += 1) {
+      try {
+        window.adsbygoogle.push({});
+      } catch (e) {}
+    }
   }
 
   function hasInsertedAutoAd(root, kind) {
@@ -219,14 +263,7 @@
     ];
 
     map.forEach(function (pair) {
-      var source = document.getElementById(pair[0]);
-      var target = document.querySelector(pair[1]);
-      if (!source || !target) return;
-      var content = source.querySelector(".widget-content");
-      if (!content) return;
-      var html = content.innerHTML.trim();
-      if (!html) return;
-      target.insertAdjacentHTML("beforeend", html);
+      movePayload(document.getElementById(pair[0]), document.querySelector(pair[1]));
     });
 
     var middleSource = document.getElementById("ad-article-middle");
@@ -236,14 +273,14 @@
     var listSource = document.getElementById("ad-list-middle");
     var listTemplate = document.getElementById("list-ad-template");
     fillTemplateSlot(listSource, listTemplate);
+
+    activateAdsense(document);
   }
 
   function fillTemplateSlot(source, template) {
     if (!source || !template) return;
-    var content = source.querySelector(".widget-content");
-    if (!content || !content.innerHTML.trim()) return;
     var slot = (template.content && template.content.querySelector(".ad-slot")) || template.querySelector(".ad-slot");
-    if (slot) slot.insertAdjacentHTML("beforeend", content.innerHTML);
+    movePayload(source, slot);
   }
 
   function initMobileStickyAd() {
@@ -334,6 +371,7 @@
     insertArticleMiddleAd();
     insertListAd();
     hideEmptyAdSlots();
+    Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), markFilledAdSlot);
     initMobileStickyAd();
     initArticleEnhancements();
     initShare();
