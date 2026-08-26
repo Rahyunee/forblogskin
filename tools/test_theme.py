@@ -24,6 +24,8 @@ REQUIRED = [
     "threadedComments",
     "ad-article-top",
     "article-middle-ad-template",
+    "HTML103",
+    "HTML104",
 ]
 
 
@@ -120,12 +122,31 @@ def test_gtag_braces(xml: str) -> None:
         fail("python f-string braces leaked into XML")
 
 
+def test_inplace_ads(xml: str) -> None:
+    js = JS.read_text(encoding="utf-8")
+    sources = re.search(r"<div id='ad-sources'>([\s\S]*?)</div>\s*<script", xml)
+    if not sources:
+        fail("missing #ad-sources")
+    hidden = sources.group(1)
+    if "HTML103" in hidden or "HTML104" in hidden:
+        fail("sidebar/bottom ads must not live in hidden #ad-sources")
+    if not re.search(r"ad-slot--article-bottom[\s\S]{0,500}id='HTML103'", xml):
+        fail("HTML103 must render inside the article-bottom slot")
+    if not re.search(r"ad-slot--sidebar[\s\S]{0,500}id='HTML104'", xml):
+        fail("HTML104 must render inside the sidebar slot")
+    if '["ad-article-bottom"' in js or '["ad-sidebar"' in js:
+        fail("script.js should not move sidebar/bottom ads from hidden sources")
+    if ".ad-slot:has(ins" in (ROOT / "style.css").read_text(encoding="utf-8"):
+        fail("unfilled ads must not collapse via :has(ins) CSS")
+
+
 def main() -> None:
     xml = test_build()
     test_restore_rules(xml)
     test_xml_shape(xml)
     test_clone_template_child()
     test_gtag_braces(xml)
+    test_inplace_ads(xml)
     widget_count = len(re.findall(r"<b:widget ", xml))
     print("theme tests passed")
     print(f"widgets: {widget_count}")

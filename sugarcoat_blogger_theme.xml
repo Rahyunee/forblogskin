@@ -588,6 +588,7 @@ button { cursor: pointer; }
 }
 
 .ad-slot {
+  position: relative;
   display: grid;
   min-height: 100px;
   place-items: center;
@@ -603,25 +604,34 @@ button { cursor: pointer; }
   border-radius: 6px;
 }
 
-.ad-slot span {
+.ad-slot > .ad-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
   padding: 3px 7px;
   background: #fff;
   border: 1px solid #eee;
   border-radius: 4px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
 }
 
 .ad-slot[hidden] { display: none !important; }
-.ad-slot.has-ad,
-.ad-slot:has(ins.adsbygoogle),
-.ad-slot:has(iframe) {
+.ad-slot .widget,
+.ad-slot .widget-content,
+.ad-slot ins.adsbygoogle {
+  width: 100%;
+  max-width: 100%;
+  justify-self: center;
+}
+.ad-slot.is-filled {
   background: transparent;
   border: none;
   padding: 0;
   min-height: 0;
 }
-.ad-slot.has-ad .ad-label,
-.ad-slot:has(ins.adsbygoogle) .ad-label,
-.ad-slot:has(iframe) .ad-label { display: none !important; }
+.ad-slot.is-filled .ad-label { display: none !important; }
 
 .ad-slot--article-top,
 .ad-slot--article-bottom { min-height: 250px; }
@@ -1361,7 +1371,6 @@ body#layout .ad-slot { min-height: 80px; }
             <div class='ad-template' id='article-middle-ad-template'>
               <div class='ad-slot ad-slot--article-middle' data-auto-ad='middle' aria-label='본문 중간 광고'><span class='ad-label'>AD</span></div>
             </div>
-            <div class='ad-slot ad-slot--article-bottom' aria-label='본문 하단 광고'><span class='ad-label'>AD</span></div>
             <b:if cond='data:post.labels'>
               <section class='article-labels'>
                 <b:loop values='data:post.labels' var='label'>
@@ -1670,6 +1679,25 @@ body#layout .ad-slot { min-height: 80px; }
         </b:widget>
       </b:section>
 
+      <b:if cond='data:view.isPost or data:view.isPage'>
+        <div class='ad-slot ad-slot--article-bottom' data-ad-slot='article-bottom' aria-label='본문 하단 광고'>
+          <span class='ad-label'>AD</span>
+          <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>
+          <b:widget id='HTML103' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[<ins class="adsbygoogle"
+     style="display:block;width:336px;height:280px"
+     data-ad-client="ca-pub-6692939836499331"
+     data-ad-slot="1008345394"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+        </div>
+      </b:if>
+
       <b:if cond='data:view.isMultipleItems'>
         <div class='ad-template' id='list-ad-template'>
           <div class='ad-slot ad-slot--list-middle' data-auto-ad='list' aria-label='목록 중간 광고'><span class='ad-label'>AD</span></div>
@@ -1680,7 +1708,22 @@ body#layout .ad-slot { min-height: 80px; }
 
     <aside class='site-sidebar'>
       <div class='sidebar-sticky'>
-        <div class='ad-slot ad-slot--sidebar' aria-label='사이드바 광고'><span class='ad-label'>AD</span></div>
+        <div class='ad-slot ad-slot--sidebar' data-ad-slot='sidebar' aria-label='사이드바 광고'>
+          <span class='ad-label'>AD</span>
+          <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>
+          <b:widget id='HTML104' locked='false' title='' type='HTML' version='2' visible='true'>
+            <b:widget-settings>
+              <b:widget-setting name='content'><![CDATA[<ins class="adsbygoogle"
+     style="display:block;width:300px;height:250px"
+     data-ad-client="ca-pub-6692939836499331"
+     data-ad-slot="7633913202"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>]]></b:widget-setting>
+            </b:widget-settings>
+            <b:includable id='main'>
+              <div class='widget-content'><data:content/></div>
+            </b:includable>
+          </b:widget></b:section>
+        </div>
         <b:section class='sidebar' id='sidebar' name='사이드바' showaddelement='yes'>
           <b:widget id='Label1' locked='false' title='라벨' type='Label' version='2' visible='true'>
             <b:widget-settings>
@@ -1762,32 +1805,6 @@ body#layout .ad-slot { min-height: 80px; }
           <b:widget id='HTML102' locked='false' title='' type='HTML' version='2' visible='true'>
             <b:widget-settings>
               <b:widget-setting name='content'><![CDATA[]]></b:widget-setting>
-            </b:widget-settings>
-            <b:includable id='main'>
-              <div class='widget-content'><data:content/></div>
-            </b:includable>
-          </b:widget></b:section>
-    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>
-          <b:widget id='HTML103' locked='false' title='' type='HTML' version='2' visible='true'>
-            <b:widget-settings>
-              <b:widget-setting name='content'><![CDATA[<ins class="adsbygoogle"
-     style="display:block;width:336px;height:280px"
-     data-ad-client="ca-pub-6692939836499331"
-     data-ad-slot="1008345394"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>]]></b:widget-setting>
-            </b:widget-settings>
-            <b:includable id='main'>
-              <div class='widget-content'><data:content/></div>
-            </b:includable>
-          </b:widget></b:section>
-    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>
-          <b:widget id='HTML104' locked='false' title='' type='HTML' version='2' visible='true'>
-            <b:widget-settings>
-              <b:widget-setting name='content'><![CDATA[<ins class="adsbygoogle"
-     style="display:block;width:300px;height:250px"
-     data-ad-client="ca-pub-6692939836499331"
-     data-ad-slot="7633913202"></ins>
-<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>]]></b:widget-setting>
             </b:widget-settings>
             <b:includable id='main'>
               <div class='widget-content'><data:content/></div>
@@ -2010,20 +2027,41 @@ body#layout .ad-slot { min-height: 80px; }
   function hideEmptyAdSlots() {
     if (showPlaceholders) return;
     Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), function (slot) {
-      if (!slotHasAdContent(slot)) {
-        slot.hidden = true;
-        slot.setAttribute("aria-hidden", "true");
-      } else {
-        markFilledAdSlot(slot);
-      }
+      if (slot.closest && slot.closest(".ad-template")) return;
+      if (slotHasAdContent(slot) || slot.querySelector(".widget, ins.adsbygoogle, iframe")) return;
+      slot.hidden = true;
+      slot.setAttribute("aria-hidden", "true");
     });
   }
 
+  function adIsFilled(slot) {
+    if (slot.querySelector("iframe")) return true;
+    var ins = slot.querySelector("ins.adsbygoogle");
+    if (!ins) return false;
+    return ins.getAttribute("data-ad-status") === "filled";
+  }
+
   function markFilledAdSlot(slot) {
-    if (!slot.querySelector("ins.adsbygoogle, iframe, [data-ad-slot]")) return;
-    slot.classList.add("has-ad");
+    if (!adIsFilled(slot)) return;
+    slot.classList.add("is-filled");
     Array.prototype.forEach.call(slot.querySelectorAll(".ad-label"), function (label) {
       label.hidden = true;
+    });
+  }
+
+  function watchAdSlots() {
+    Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), function (slot) {
+      markFilledAdSlot(slot);
+      if (typeof MutationObserver === "undefined") return;
+      var observer = new MutationObserver(function () {
+        markFilledAdSlot(slot);
+      });
+      observer.observe(slot, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        attributeFilter: ["data-ad-status", "data-adsbygoogle-status"]
+      });
     });
   }
 
@@ -2038,27 +2076,40 @@ body#layout .ad-slot { min-height: 80px; }
 
   function movePayload(source, target) {
     var payload = widgetPayload(source);
-    if (!payload || !target) return;
+    if (!payload || !target) return false;
     while (payload.firstChild) {
       target.appendChild(payload.firstChild);
     }
+    return true;
   }
 
-  function activateAdsense(root) {
+  function gadgetAlreadyPushed(ins) {
+    var sib = ins.nextElementSibling;
+    return Boolean(sib && sib.tagName === "SCRIPT" && /adsbygoogle/.test(sib.textContent || ""));
+  }
+
+  function activateAdsense(root, force) {
     if (!root) return;
-    var nodes = root.querySelectorAll("ins.adsbygoogle");
+    var nodes = root.querySelectorAll ? root.querySelectorAll("ins.adsbygoogle") : [];
+    if (root.matches && root.matches("ins.adsbygoogle")) {
+      nodes = [root];
+    }
     if (!nodes.length) return;
-    Array.prototype.forEach.call(nodes, function (ins) {
-      ins.removeAttribute("data-adsbygoogle-status");
-      ins.removeAttribute("data-ad-status");
-      ins.innerHTML = "";
-    });
     window.adsbygoogle = window.adsbygoogle || [];
-    for (var i = 0; i < nodes.length; i += 1) {
+    Array.prototype.forEach.call(nodes, function (ins) {
+      if (ins.closest && ins.closest("#ad-sources, .ad-template")) return;
+      var filled = ins.getAttribute("data-ad-status") === "filled" || Boolean(ins.querySelector("iframe"));
+      if (filled) return;
+      if (!force && gadgetAlreadyPushed(ins)) return;
+      if (ins.getAttribute("data-adsbygoogle-status") === "done") {
+        ins.removeAttribute("data-adsbygoogle-status");
+        ins.removeAttribute("data-ad-status");
+        ins.innerHTML = "";
+      }
       try {
         window.adsbygoogle.push({});
       } catch (e) {}
-    }
+    });
   }
 
   function hasInsertedAutoAd(root, kind) {
@@ -2084,6 +2135,7 @@ body#layout .ad-slot { min-height: 80px; }
     var node = cloneTemplateChild(template);
     if (!anchor || !node) return;
     anchor.insertAdjacentElement("afterend", node);
+    activateAdsense(node, true);
   }
 
   function insertListAd() {
@@ -2095,20 +2147,22 @@ body#layout .ad-slot { min-height: 80px; }
     var node = cloneTemplateChild(template);
     if (!anchor || !node) return;
     anchor.insertAdjacentElement("afterend", node);
+    activateAdsense(node, true);
   }
 
   function moveBloggerAds() {
     var map = [
       ["ad-article-top", ".ad-slot--article-top"],
-      ["ad-article-bottom", ".ad-slot--article-bottom"],
-      ["ad-sidebar", ".ad-slot--sidebar"],
       ["ad-list-top", ".ad-slot--list-top"],
       ["ad-list-bottom", ".ad-slot--list-bottom"],
       ["ad-mobile-sticky", ".ad-slot--mobile-sticky"]
     ];
 
     map.forEach(function (pair) {
-      movePayload(document.getElementById(pair[0]), document.querySelector(pair[1]));
+      var target = document.querySelector(pair[1]);
+      if (movePayload(document.getElementById(pair[0]), target)) {
+        activateAdsense(target, true);
+      }
     });
 
     var middleSource = document.getElementById("ad-article-middle");
@@ -2118,8 +2172,6 @@ body#layout .ad-slot { min-height: 80px; }
     var listSource = document.getElementById("ad-list-middle");
     var listTemplate = document.getElementById("list-ad-template");
     fillTemplateSlot(listSource, listTemplate);
-
-    activateAdsense(document);
   }
 
   function fillTemplateSlot(source, template) {
@@ -2216,7 +2268,7 @@ body#layout .ad-slot { min-height: 80px; }
     insertArticleMiddleAd();
     insertListAd();
     hideEmptyAdSlots();
-    Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), markFilledAdSlot);
+    watchAdSlots();
     initMobileStickyAd();
     initArticleEnhancements();
     initShare();

@@ -165,20 +165,41 @@
   function hideEmptyAdSlots() {
     if (showPlaceholders) return;
     Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), function (slot) {
-      if (!slotHasAdContent(slot)) {
-        slot.hidden = true;
-        slot.setAttribute("aria-hidden", "true");
-      } else {
-        markFilledAdSlot(slot);
-      }
+      if (slot.closest && slot.closest(".ad-template")) return;
+      if (slotHasAdContent(slot) || slot.querySelector(".widget, ins.adsbygoogle, iframe")) return;
+      slot.hidden = true;
+      slot.setAttribute("aria-hidden", "true");
     });
   }
 
+  function adIsFilled(slot) {
+    if (slot.querySelector("iframe")) return true;
+    var ins = slot.querySelector("ins.adsbygoogle");
+    if (!ins) return false;
+    return ins.getAttribute("data-ad-status") === "filled";
+  }
+
   function markFilledAdSlot(slot) {
-    if (!slot.querySelector("ins.adsbygoogle, iframe, [data-ad-slot]")) return;
-    slot.classList.add("has-ad");
+    if (!adIsFilled(slot)) return;
+    slot.classList.add("is-filled");
     Array.prototype.forEach.call(slot.querySelectorAll(".ad-label"), function (label) {
       label.hidden = true;
+    });
+  }
+
+  function watchAdSlots() {
+    Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), function (slot) {
+      markFilledAdSlot(slot);
+      if (typeof MutationObserver === "undefined") return;
+      var observer = new MutationObserver(function () {
+        markFilledAdSlot(slot);
+      });
+      observer.observe(slot, {
+        attributes: true,
+        childList: true,
+        subtree: true,
+        attributeFilter: ["data-ad-status", "data-adsbygoogle-status"]
+      });
     });
   }
 
@@ -193,27 +214,40 @@
 
   function movePayload(source, target) {
     var payload = widgetPayload(source);
-    if (!payload || !target) return;
+    if (!payload || !target) return false;
     while (payload.firstChild) {
       target.appendChild(payload.firstChild);
     }
+    return true;
   }
 
-  function activateAdsense(root) {
+  function gadgetAlreadyPushed(ins) {
+    var sib = ins.nextElementSibling;
+    return Boolean(sib && sib.tagName === "SCRIPT" && /adsbygoogle/.test(sib.textContent || ""));
+  }
+
+  function activateAdsense(root, force) {
     if (!root) return;
-    var nodes = root.querySelectorAll("ins.adsbygoogle");
+    var nodes = root.querySelectorAll ? root.querySelectorAll("ins.adsbygoogle") : [];
+    if (root.matches && root.matches("ins.adsbygoogle")) {
+      nodes = [root];
+    }
     if (!nodes.length) return;
-    Array.prototype.forEach.call(nodes, function (ins) {
-      ins.removeAttribute("data-adsbygoogle-status");
-      ins.removeAttribute("data-ad-status");
-      ins.innerHTML = "";
-    });
     window.adsbygoogle = window.adsbygoogle || [];
-    for (var i = 0; i < nodes.length; i += 1) {
+    Array.prototype.forEach.call(nodes, function (ins) {
+      if (ins.closest && ins.closest("#ad-sources, .ad-template")) return;
+      var filled = ins.getAttribute("data-ad-status") === "filled" || Boolean(ins.querySelector("iframe"));
+      if (filled) return;
+      if (!force && gadgetAlreadyPushed(ins)) return;
+      if (ins.getAttribute("data-adsbygoogle-status") === "done") {
+        ins.removeAttribute("data-adsbygoogle-status");
+        ins.removeAttribute("data-ad-status");
+        ins.innerHTML = "";
+      }
       try {
         window.adsbygoogle.push({});
       } catch (e) {}
-    }
+    });
   }
 
   function hasInsertedAutoAd(root, kind) {
@@ -239,6 +273,7 @@
     var node = cloneTemplateChild(template);
     if (!anchor || !node) return;
     anchor.insertAdjacentElement("afterend", node);
+    activateAdsense(node, true);
   }
 
   function insertListAd() {
@@ -250,20 +285,22 @@
     var node = cloneTemplateChild(template);
     if (!anchor || !node) return;
     anchor.insertAdjacentElement("afterend", node);
+    activateAdsense(node, true);
   }
 
   function moveBloggerAds() {
     var map = [
       ["ad-article-top", ".ad-slot--article-top"],
-      ["ad-article-bottom", ".ad-slot--article-bottom"],
-      ["ad-sidebar", ".ad-slot--sidebar"],
       ["ad-list-top", ".ad-slot--list-top"],
       ["ad-list-bottom", ".ad-slot--list-bottom"],
       ["ad-mobile-sticky", ".ad-slot--mobile-sticky"]
     ];
 
     map.forEach(function (pair) {
-      movePayload(document.getElementById(pair[0]), document.querySelector(pair[1]));
+      var target = document.querySelector(pair[1]);
+      if (movePayload(document.getElementById(pair[0]), target)) {
+        activateAdsense(target, true);
+      }
     });
 
     var middleSource = document.getElementById("ad-article-middle");
@@ -273,8 +310,6 @@
     var listSource = document.getElementById("ad-list-middle");
     var listTemplate = document.getElementById("list-ad-template");
     fillTemplateSlot(listSource, listTemplate);
-
-    activateAdsense(document);
   }
 
   function fillTemplateSlot(source, template) {
@@ -371,7 +406,7 @@
     insertArticleMiddleAd();
     insertListAd();
     hideEmptyAdSlots();
-    Array.prototype.forEach.call(document.querySelectorAll(".ad-slot"), markFilledAdSlot);
+    watchAdSlots();
     initMobileStickyAd();
     initArticleEnhancements();
     initShare();

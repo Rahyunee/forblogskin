@@ -621,7 +621,6 @@ Version:     1.0.0
             <div class='ad-template' id='article-middle-ad-template'>
               <div class='ad-slot ad-slot--article-middle' data-auto-ad='middle' aria-label='본문 중간 광고'><span class='ad-label'>AD</span></div>
             </div>
-            <div class='ad-slot ad-slot--article-bottom' aria-label='본문 하단 광고'><span class='ad-label'>AD</span></div>
             <b:if cond='data:post.labels'>
               <section class='article-labels'>
                 <b:loop values='data:post.labels' var='label'>
@@ -710,6 +709,13 @@ Version:     1.0.0
         </b:widget>
       </b:section>
 
+      <b:if cond='data:view.isPost or data:view.isPage'>
+        <div class='ad-slot ad-slot--article-bottom' data-ad-slot='article-bottom' aria-label='본문 하단 광고'>
+          <span class='ad-label'>AD</span>
+          <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>{html_widget('HTML103', '', ADSENSE_BOTTOM)}</b:section>
+        </div>
+      </b:if>
+
       <b:if cond='data:view.isMultipleItems'>
         <div class='ad-template' id='list-ad-template'>
           <div class='ad-slot ad-slot--list-middle' data-auto-ad='list' aria-label='목록 중간 광고'><span class='ad-label'>AD</span></div>
@@ -720,7 +726,10 @@ Version:     1.0.0
 
     <aside class='site-sidebar'>
       <div class='sidebar-sticky'>
-        <div class='ad-slot ad-slot--sidebar' aria-label='사이드바 광고'><span class='ad-label'>AD</span></div>
+        <div class='ad-slot ad-slot--sidebar' data-ad-slot='sidebar' aria-label='사이드바 광고'>
+          <span class='ad-label'>AD</span>
+          <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>{html_widget('HTML104', '', ADSENSE_SIDEBAR)}</b:section>
+        </div>
         <b:section class='sidebar' id='sidebar' name='사이드바' showaddelement='yes'>
           <b:widget id='Label1' locked='false' title='라벨' type='Label' version='2' visible='true'>
             <b:widget-settings>
@@ -791,8 +800,6 @@ Version:     1.0.0
   <div id='ad-sources'>
     <b:section id='ad-article-top' maxwidgets='1' name='본문 상단 광고' showaddelement='yes'>{html_widget('HTML101')}</b:section>
     <b:section id='ad-article-middle' maxwidgets='1' name='본문 중간 광고' showaddelement='yes'>{html_widget('HTML102')}</b:section>
-    <b:section id='ad-article-bottom' maxwidgets='1' name='본문 하단 광고' showaddelement='yes'>{html_widget('HTML103', '', ADSENSE_BOTTOM)}</b:section>
-    <b:section id='ad-sidebar' maxwidgets='1' name='사이드바 광고' showaddelement='yes'>{html_widget('HTML104', '', ADSENSE_SIDEBAR)}</b:section>
     <b:section id='ad-list-top' maxwidgets='1' name='목록 상단 광고' showaddelement='yes'>{html_widget('HTML105')}</b:section>
     <b:section id='ad-list-middle' maxwidgets='1' name='목록 중간 광고' showaddelement='yes'>{html_widget('HTML106')}</b:section>
     <b:section id='ad-list-bottom' maxwidgets='1' name='목록 하단 광고' showaddelement='yes'>{html_widget('HTML107')}</b:section>
